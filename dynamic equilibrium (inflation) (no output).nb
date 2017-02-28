@@ -1,0 +1,1051 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 10.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     35532,       1042]
+NotebookOptionsPosition[     33619,        981]
+NotebookOutlinePosition[     33964,        996]
+CellTagsIndexPosition[     33921,        993]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["price level", "Section",
+ CellChangeTimes->{{3.69310061885933*^9, 3.693100642987398*^9}, {
+  3.6931694811971855`*^9, 3.6931694833343887`*^9}, {3.6972137094531565`*^9, 
+  3.6972137105607495`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["data", "Subsection",
+ CellChangeTimes->{{3.693169188238559*^9, 3.6931691944161696`*^9}}],
+
+Cell["import data (FRED)", "Text",
+ CellChangeTimes->{{3.6931688883990045`*^9, 3.693168894178939*^9}, {
+   3.693169176507338*^9, 3.693169182747349*^9}, 3.693169869021276*^9}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"data", "=", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"1900", "+", 
+        FractionBox[
+         RowBox[{"FromDate", "[", 
+          RowBox[{"Normal", "[", 
+           RowBox[{"#", "[", 
+            RowBox[{"[", "1", "]"}], "]"}], "]"}], "]"}], 
+         RowBox[{"365.24", "*", "3600", "*", "24"}]], "+", 
+        RowBox[{"1", "/", "12.0"}]}], ",", 
+       RowBox[{"#", "[", 
+        RowBox[{"[", "2", "]"}], "]"}]}], "}"}], "&"}], "/@", 
+    RowBox[{"Drop", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+       "Import", "[", 
+        "\"\<C:\\\\Users\\\\dp864c\\\\Desktop\\\\SAVED \
+DESKTOP\\\\PCEPILFE.xls\>\"", "]"}], "[", 
+       RowBox[{"[", "1", "]"}], "]"}], ",", "11"}], "]"}]}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"badone", "=", 
+   RowBox[{
+    RowBox[{"Position", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"Round", "[", 
+         RowBox[{"#", ",", "0.01"}], "]"}], "&"}], "/@", 
+       RowBox[{"data", "[", 
+        RowBox[{"[", 
+         RowBox[{"All", ",", "1"}], "]"}], "]"}]}], ",", 
+      RowBox[{"2001.0", "+", 
+       RowBox[{"9", "/", "12"}]}]}], "]"}], "[", 
+    RowBox[{"[", "1", "]"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"data", "=", 
+   RowBox[{"Delete", "[", 
+    RowBox[{"data", ",", "badone"}], "]"}]}], ";", " ", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "this", " ", "removes", " ", "a", " ", "strange", " ", "spike", " ", "in", 
+    " ", "the", " ", "PCE", " ", "inflation", " ", "time", " ", "series"}], 
+   " ", "*)"}]}]}], "Input",
+ CellChangeTimes->{{3.693098786644432*^9, 3.693098838877572*^9}, 
+   3.693098880040188*^9, 3.693169435576993*^9, {3.6931698442152324`*^9, 
+   3.6931698522044463`*^9}, {3.6931699085313473`*^9, 
+   3.6931699400478325`*^9}, {3.693169985838913*^9, 3.6931700062663493`*^9}, 
+   3.6931703303608756`*^9, 3.693170369867546*^9, {3.693170913874151*^9, 
+   3.693170970140051*^9}, {3.693182666271968*^9, 3.693182733624489*^9}, {
+   3.693182978714999*^9, 3.6931830001740375`*^9}, {3.69618197398641*^9, 
+   3.69618198868861*^9}, 3.697213677547961*^9, {3.697215452157456*^9, 
+   3.697215462494656*^9}, {3.6972306034947243`*^9, 3.6972306763995237`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"ListPlot", "[", "data", "]"}]], "Input",
+ CellChangeTimes->{{3.6930988817492156`*^9, 3.6930988861123395`*^9}, 
+   3.6931694411774025`*^9}],
+
+Cell["plotting log 1/P", "Text",
+ CellChangeTimes->{{3.6931689029608574`*^9, 3.6931689166420813`*^9}, {
+  3.6931691061668143`*^9, 3.6931691094740205`*^9}, {3.697230697088924*^9, 
+  3.697230707766324*^9}}],
+
+Cell[BoxData[
+ RowBox[{"ListPlot", "[", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"#", "[", 
+       RowBox[{"[", "1", "]"}], "]"}], ",", 
+      RowBox[{"Log", "[", 
+       RowBox[{"1", "/", 
+        RowBox[{"#", "[", 
+         RowBox[{"[", "2", "]"}], "]"}]}], "]"}]}], "}"}], "&"}], "/@", 
+   "data"}], "]"}]], "Input",
+ CellChangeTimes->{{3.6930989570672913`*^9, 3.693098991779378*^9}, 
+   3.6931694444846087`*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["entropy minimization", "Subsection",
+ CellChangeTimes->{{3.69316920039098*^9, 3.6931692189394126`*^9}}],
+
+Cell["perform an entropy minimization over slope (\[Alpha]) values", "Text",
+ CellChangeTimes->{{3.6931689219460907`*^9, 3.6931689501041403`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"binsize", "=", "0.025"}], ";"}]], "Input",
+ CellChangeTimes->{{3.6930993956905084`*^9, 3.6930993967817607`*^9}, 
+   3.693099602074525*^9, 3.693099655963612*^9, {3.69618620352124*^9, 
+   3.6961862036928406`*^9}, {3.6972137977882776`*^9, 3.6972137978974776`*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"shannonfunction", "[", "p_", "]"}], ":=", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", "}"}], ",", 
+     RowBox[{"If", "[", 
+      RowBox[{
+       RowBox[{"p", "\[Equal]", "0"}], ",", "0", ",", 
+       RowBox[{
+        RowBox[{"-", "p"}], " ", 
+        RowBox[{"Log", "[", "p", "]"}]}]}], "]"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"listentropy", "[", "list_", "]"}], ":=", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", "}"}], ",", 
+     RowBox[{
+      RowBox[{"Total", "[", 
+       RowBox[{"shannonfunction", "/@", "list"}], "]"}], "/", 
+      RowBox[{"Log", "[", 
+       RowBox[{"Length", "[", "list", "]"}], "]"}]}]}], "]"}]}], 
+  ";"}]}], "Input",
+ CellChangeTimes->{{3.6930992147222166`*^9, 3.693099228881274*^9}, 
+   3.693099375172667*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"entropydata", "=", 
+   RowBox[{"Table", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"temp", "=", 
+       RowBox[{
+        RowBox[{
+         RowBox[{
+          RowBox[{"Log", "[", 
+           RowBox[{"1", "/", 
+            RowBox[{"#", "[", 
+             RowBox[{"[", "2", "]"}], "]"}]}], "]"}], "-", 
+          RowBox[{"\[Alpha]", "*", 
+           RowBox[{"(", 
+            RowBox[{
+             RowBox[{"#", "[", 
+              RowBox[{"[", "1", "]"}], "]"}], "-", 
+             RowBox[{"data", "[", 
+              RowBox[{"[", 
+               RowBox[{"1", ",", "1"}], "]"}], "]"}]}], ")"}]}]}], "&"}], "/@", 
+        RowBox[{"Cases", "[", 
+         RowBox[{"data", ",", 
+          RowBox[{"x_", "/;", 
+           RowBox[{
+            RowBox[{"x", "[", 
+             RowBox[{"[", "1", "]"}], "]"}], "\[LessEqual]", "2011"}]}]}], 
+         "]"}]}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"{", 
+       RowBox[{"\[Alpha]", ",", 
+        RowBox[{"listentropy", "[", 
+         RowBox[{
+          RowBox[{"HistogramList", "[", 
+           RowBox[{"temp", ",", 
+            RowBox[{"{", "binsize", "}"}], ",", "\"\<Probability\>\""}], 
+           "]"}], "[", 
+          RowBox[{"[", "2", "]"}], "]"}], "]"}]}], "}"}]}], 
+     "\[IndentingNewLine]", ",", 
+     RowBox[{"{", 
+      RowBox[{"\[Alpha]", ",", 
+       RowBox[{"-", "0.2"}], ",", "0.2", ",", "0.001"}], "}"}]}], "]"}]}], 
+  ";"}]], "Input",
+ CellChangeTimes->{
+  3.6930994399068327`*^9, {3.693099479776211*^9, 3.693099530028403*^9}, {
+   3.6931694466062126`*^9, 3.6931694477138147`*^9}, {3.69618203811641*^9, 
+   3.69618206826861*^9}, 3.6961862206338406`*^9, {3.6972137597295485`*^9, 
+   3.697213776183878*^9}}],
+
+Cell[BoxData[
+ RowBox[{"ListPlot", "[", 
+  RowBox[{"entropydata", ",", 
+   RowBox[{"Joined", "\[Rule]", "True"}], ",", 
+   RowBox[{"PlotRange", "\[Rule]", "All"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.6930994613958673`*^9, 3.693099467346411*^9}, {
+  3.6930996866982174`*^9, 3.6930996892252274`*^9}, {3.697213805605878*^9, 
+  3.6972138128678775`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"\[Alpha]0", "=", 
+  RowBox[{
+   RowBox[{"(", 
+    RowBox[{"entropydata", "[", 
+     RowBox[{"[", 
+      RowBox[{
+       RowBox[{"Position", "[", 
+        RowBox[{"entropydata", ",", 
+         RowBox[{"Min", "[", 
+          RowBox[{"entropydata", "[", 
+           RowBox[{"[", 
+            RowBox[{"All", ",", "2"}], "]"}], "]"}], "]"}]}], "]"}], "[", 
+       RowBox[{"[", 
+        RowBox[{"1", ",", "1"}], "]"}], "]"}], "]"}], "]"}], ")"}], "[", 
+   RowBox[{"[", "1", "]"}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.6961862327962403`*^9, 3.6961862499778404`*^9}, {
+  3.6972137823518777`*^9, 3.6972137845202775`*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"minent", "=", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"Log", "[", 
+        RowBox[{"1", "/", 
+         RowBox[{"#", "[", 
+          RowBox[{"[", "2", "]"}], "]"}]}], "]"}], "-", 
+       RowBox[{"\[Alpha]0", "*", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"#", "[", 
+           RowBox[{"[", "1", "]"}], "]"}], "-", 
+          RowBox[{"data", "[", 
+           RowBox[{"[", 
+            RowBox[{"1", ",", "1"}], "]"}], "]"}]}], ")"}]}]}], ")"}], "&"}], 
+    "/@", "data"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"ListPlot", "[", 
+  RowBox[{
+   RowBox[{"Transpose", "[", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"data", "[", 
+       RowBox[{"[", 
+        RowBox[{"All", ",", "1"}], "]"}], "]"}], ",", "minent"}], "}"}], 
+    "]"}], ",", 
+   RowBox[{"Joined", "\[Rule]", "True"}]}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"Histogram", "[", 
+  RowBox[{"minent", ",", 
+   RowBox[{"{", "0.01", "}"}], ",", "\"\<Probability\>\""}], "]"}]}], "Input",
+ CellChangeTimes->{{3.6930995904605055`*^9, 3.69309959253751*^9}, {
+   3.6930996419495864`*^9, 3.6930996421795864`*^9}, 3.693099814762236*^9, {
+   3.6931694511614203`*^9, 3.693169453376624*^9}}],
+
+Cell["above is the entropy minimum histogram ", "Text",
+ CellChangeTimes->{{3.6931692432598553`*^9, 3.693169254398275*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["fit to function", "Subsection",
+ CellChangeTimes->{{3.6931692604510856`*^9, 3.693169267549098*^9}}],
+
+Cell["next, fit min entropy data to sum of logistic functions", "Text",
+ CellChangeTimes->{{3.6931689833633986`*^9, 3.693169023377469*^9}, {
+  3.693169241528252*^9, 3.693169257736681*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"fitdata", "=", 
+   RowBox[{"Transpose", "[", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"data", "[", 
+       RowBox[{"[", 
+        RowBox[{"All", ",", "1"}], "]"}], "]"}], ",", "minent"}], "}"}], 
+    "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.693171337812179*^9, 3.693171401467692*^9}, 
+   3.693171445013369*^9, {3.693171511046686*^9, 3.6931715246031094`*^9}, {
+   3.6931715953963537`*^9, 3.693171629521614*^9}, {3.6931716742070932`*^9, 
+   3.6931717514704294`*^9}, {3.6931718189811497`*^9, 3.693171821479154*^9}, {
+   3.695655614445128*^9, 3.695655614772728*^9}, {3.69618220326321*^9, 
+   3.69618220497921*^9}, {3.6972138531482773`*^9, 3.6972138534290776`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"nlm", "=", 
+  RowBox[{"NonlinearModelFit", "[", 
+   RowBox[{"fitdata", ",", 
+    RowBox[{
+     FractionBox["a0", 
+      RowBox[{"1", "+", 
+       RowBox[{"Exp", "[", 
+        RowBox[{"-", 
+         FractionBox[
+          RowBox[{"y", "-", "y0"}], "b0"]}], "]"}]}]], "+", "c"}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"a0", ",", "1.0"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"b0", ",", "1.0"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"y0", ",", "1980.1"}], "}"}], ",", "\[IndentingNewLine]", 
+      RowBox[{"{", 
+       RowBox[{"c", ",", "0"}], "}"}]}], "}"}], ",", "y", ",", 
+    RowBox[{"Method", "\[Rule]", "Automatic"}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.6930996745281935`*^9, 3.6930998555413*^9}, {
+   3.6930999792880764`*^9, 3.6930999796780767`*^9}, 3.693169455576228*^9, {
+   3.6931700565120654`*^9, 3.6931701284075303`*^9}, {3.6931710329693613`*^9, 
+   3.6931710801986446`*^9}, {3.6931716964245324`*^9, 3.693171697266934*^9}, {
+   3.693182794195201*^9, 3.6931828479222984`*^9}, {3.693183048002523*^9, 
+   3.6931831183456507`*^9}, {3.6931832615117207`*^9, 3.693183285332363*^9}, {
+   3.69618209837001*^9, 3.69618227134501*^9}, {3.69618233965681*^9, 
+   3.6961823414508095`*^9}, {3.69618250969341*^9, 3.6961825618406096`*^9}, {
+   3.69618259947781*^9, 3.6961826091362095`*^9}, {3.69618267888521*^9, 
+   3.6961827449022098`*^9}, {3.6972138255908775`*^9, 3.697213845907878*^9}}],
+
+Cell["pretty decent fit (in entropy minimum space)", "Text",
+ CellChangeTimes->{{3.693169042144302*^9, 3.6931690621591372`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"transitions", "=", 
+  RowBox[{
+   RowBox[{"{", "y0", "}"}], "/.", 
+   RowBox[{"nlm", "[", "\"\<BestFitParameters\>\"", "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.6961822830616097`*^9, 3.6961823113202095`*^9}, {
+  3.6961825674284096`*^9, 3.69618257455861*^9}, {3.69618267309661*^9, 
+  3.6961826875920095`*^9}, {3.6972138590178776`*^9, 3.6972138609678774`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"Show", "[", 
+  RowBox[{
+   RowBox[{"ListPlot", "[", 
+    RowBox[{"Transpose", "[", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"data", "[", 
+        RowBox[{"[", 
+         RowBox[{"All", ",", "1"}], "]"}], "]"}], ",", "minent"}], "}"}], 
+     "]"}], "]"}], ",", 
+   RowBox[{"Plot", "[", 
+    RowBox[{
+     RowBox[{"Normal", "[", "nlm", "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"y", ",", 
+       RowBox[{"data", "[", 
+        RowBox[{"[", 
+         RowBox[{"1", ",", "1"}], "]"}], "]"}], ",", 
+       RowBox[{"data", "[", 
+        RowBox[{"[", 
+         RowBox[{
+          RowBox[{"-", "1"}], ",", "1"}], "]"}], "]"}]}], "}"}]}], "]"}], ",", 
+   RowBox[{"GridLines", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{"transitions", ",", 
+      RowBox[{"{", "}"}]}], "}"}]}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.6930998601913376`*^9, 3.693099947289241*^9}, {
+   3.693169457042631*^9, 3.6931694590706344`*^9}, {3.693171538381934*^9, 
+   3.6931715711513977`*^9}, {3.6931828705543385`*^9, 3.6931828740819445`*^9}, 
+   3.6961823170786095`*^9}],
+
+Cell["show the fit in log 1/P space", "Text",
+ CellChangeTimes->{{3.693169087649582*^9, 3.6931691000672035`*^9}, {
+  3.6972307301113243`*^9, 3.697230730797724*^9}}],
+
+Cell[BoxData[
+ RowBox[{"Show", "[", 
+  RowBox[{
+   RowBox[{"ListPlot", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"#", "[", 
+         RowBox[{"[", "1", "]"}], "]"}], ",", 
+        RowBox[{"Log", "[", 
+         RowBox[{"1", "/", 
+          RowBox[{"#", "[", 
+           RowBox[{"[", "2", "]"}], "]"}]}], "]"}]}], "}"}], "&"}], "/@", 
+     "data"}], "]"}], ",", 
+   RowBox[{"Plot", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"Normal", "[", "nlm", "]"}], "+", 
+      RowBox[{"\[Alpha]0", "*", 
+       RowBox[{"(", 
+        RowBox[{"y", "-", 
+         RowBox[{"data", "[", 
+          RowBox[{"[", 
+           RowBox[{"1", ",", "1"}], "]"}], "]"}]}], ")"}]}]}], ",", 
+     RowBox[{"{", 
+      RowBox[{"y", ",", 
+       RowBox[{"data", "[", 
+        RowBox[{"[", 
+         RowBox[{"1", ",", "1"}], "]"}], "]"}], ",", 
+       RowBox[{"data", "[", 
+        RowBox[{"[", 
+         RowBox[{
+          RowBox[{"-", "1"}], ",", "1"}], "]"}], "]"}]}], "}"}]}], "]"}]}], 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.693100035482252*^9, 3.693100095008775*^9}, {
+  3.6931001509798665`*^9, 3.693100155639873*^9}, {3.6931694609894376`*^9, 
+  3.693169463501042*^9}}],
+
+Cell["here is just 1/P space ...", "Text",
+ CellChangeTimes->{{3.693169121345641*^9, 3.6931691373980694`*^9}, {
+  3.697230735520924*^9, 3.697230736488124*^9}}],
+
+Cell[BoxData[
+ RowBox[{"Show", "[", 
+  RowBox[{
+   RowBox[{"ListPlot", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"#", "[", 
+         RowBox[{"[", "1", "]"}], "]"}], ",", 
+        RowBox[{"1", "/", 
+         RowBox[{"#", "[", 
+          RowBox[{"[", "2", "]"}], "]"}]}]}], "}"}], "&"}], "/@", "data"}], 
+    "]"}], ",", 
+   RowBox[{"Plot", "[", 
+    RowBox[{
+     RowBox[{"Exp", "[", 
+      RowBox[{
+       RowBox[{"Normal", "[", "nlm", "]"}], "+", 
+       RowBox[{"\[Alpha]0", "*", 
+        RowBox[{"(", 
+         RowBox[{"y", "-", 
+          RowBox[{"data", "[", 
+           RowBox[{"[", 
+            RowBox[{"1", ",", "1"}], "]"}], "]"}]}], ")"}]}]}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"y", ",", 
+       RowBox[{"data", "[", 
+        RowBox[{"[", 
+         RowBox[{"1", ",", "1"}], "]"}], "]"}], ",", 
+       RowBox[{"data", "[", 
+        RowBox[{"[", 
+         RowBox[{
+          RowBox[{"-", "1"}], ",", "1"}], "]"}], "]"}]}], "}"}]}], "]"}]}], 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.6931001121688037`*^9, 3.693100142155853*^9}, {
+  3.693169464218643*^9, 3.6931694660750465`*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["show final graph", "Subsection",
+ CellChangeTimes->{{3.6931692806999207`*^9, 3.6931692958631477`*^9}}],
+
+Cell["\<\
+invert and show P(t) on graph with the valued of the transitions ...\
+\>", "Text",
+ CellChangeTimes->{{3.6931691409236755`*^9, 3.6931691653377185`*^9}, {
+  3.697230743151724*^9, 3.6972307454353237`*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"bands90", "=", 
+   RowBox[{"nlm", "[", "\"\<SinglePredictionBands\>\"", "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"perr", "=", 
+   RowBox[{"Plot", "[", 
+    RowBox[{
+     RowBox[{"Evaluate", "[", 
+      RowBox[{"1", "/", 
+       RowBox[{"Exp", "[", 
+        RowBox[{"bands90", "+", 
+         RowBox[{"\[Alpha]0", "*", 
+          RowBox[{"(", 
+           RowBox[{"y", "-", 
+            RowBox[{"data", "[", 
+             RowBox[{"[", 
+              RowBox[{"1", ",", "1"}], "]"}], "]"}]}], ")"}]}]}], "]"}]}], 
+      "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"y", ",", 
+       RowBox[{"data", "[", 
+        RowBox[{"[", 
+         RowBox[{"1", ",", "1"}], "]"}], "]"}], ",", "2019"}], "}"}], ",", 
+     RowBox[{"PlotStyle", "\[Rule]", "None"}], ",", 
+     RowBox[{"Filling", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"1", "\[Rule]", 
+        RowBox[{"{", "2", "}"}]}], "}"}]}], ",", 
+     RowBox[{"FillingStyle", "\[Rule]", 
+      RowBox[{"Directive", "[", 
+       RowBox[{
+        RowBox[{"Lighter", "[", "Red", "]"}], ",", 
+        RowBox[{"Opacity", "[", "0.2", "]"}]}], "]"}]}]}], "]"}]}], 
+  ";"}]}], "Input",
+ CellChangeTimes->{{3.6931707333022304`*^9, 3.6931707384190392`*^9}, 
+   3.6931708133451734`*^9, 3.6972155724736557`*^9}],
+
+Cell[BoxData[
+ RowBox[{"Show", "[", 
+  RowBox[{
+   RowBox[{"ListPlot", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"#", "[", 
+          RowBox[{"[", "1", "]"}], "]"}], ",", 
+         RowBox[{"#", "[", 
+          RowBox[{"[", "2", "]"}], "]"}]}], "}"}], "&"}], "/@", "data"}], ",", 
+     RowBox[{"PlotStyle", "\[Rule]", 
+      RowBox[{"PointSize", "[", "0.005", "]"}]}]}], "]"}], ",", "perr", ",", 
+   RowBox[{"Plot", "[", 
+    RowBox[{
+     RowBox[{"1", "/", 
+      RowBox[{"Exp", "[", 
+       RowBox[{
+        RowBox[{"Normal", "[", "nlm", "]"}], "+", 
+        RowBox[{"\[Alpha]0", "*", 
+         RowBox[{"(", 
+          RowBox[{"y", "-", 
+           RowBox[{"data", "[", 
+            RowBox[{"[", 
+             RowBox[{"1", ",", "1"}], "]"}], "]"}]}], ")"}]}]}], "]"}]}], ",", 
+     RowBox[{"{", 
+      RowBox[{"y", ",", 
+       RowBox[{"data", "[", 
+        RowBox[{"[", 
+         RowBox[{"1", ",", "1"}], "]"}], "]"}], ",", "2019"}], "}"}], ",", 
+     RowBox[{"PlotStyle", "\[Rule]", 
+      RowBox[{"Directive", "[", 
+       RowBox[{"Thick", ",", 
+        RowBox[{"Lighter", "[", "Red", "]"}], ",", 
+        RowBox[{"Opacity", "[", "0.7", "]"}]}], "]"}]}]}], "]"}], ",", 
+   RowBox[{"PlotRange", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"data", "[", 
+          RowBox[{"[", 
+           RowBox[{"1", ",", "1"}], "]"}], "]"}], "-", "2"}], ",", "2020"}], 
+       "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"0", ",", "140"}], "}"}]}], "}"}]}], ",", 
+   RowBox[{"AspectRatio", "\[Rule]", 
+    RowBox[{"1", "/", "2"}]}], ",", 
+   RowBox[{"ImageSize", "\[Rule]", 
+    RowBox[{"11", "*", "72"}]}], ",", 
+   RowBox[{"BaseStyle", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{"FontSize", "\[Rule]", "15"}], "}"}]}], ",", 
+   RowBox[{"Frame", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{"True", ",", "True", ",", "False", ",", "False"}], "}"}]}], ",", 
+   RowBox[{"FrameLabel", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{"\"\<Year\\n\>\"", ",", "\"\<\\nPrice level \!\(\*
+StyleBox[\"P\",
+FontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\"(\",
+FontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\"t\",
+FontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\")\",
+FontSlant->\"Italic\"]\) [2010 = 100]\>\""}], "}"}]}], ",", 
+   RowBox[{"GridLines", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{"transitions", ",", 
+      RowBox[{"{", "}"}]}], "}"}]}], ",", 
+   RowBox[{"Axes", "\[Rule]", "False"}], ",", 
+   RowBox[{
+   "PlotLabel", "\[Rule]", 
+    "\"\<\\nDynamic equilibrium model: PCE price level\>\""}]}], 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.6931001721454296`*^9, 3.69310017924572*^9}, {
+   3.6931002189123125`*^9, 3.6931002954937816`*^9}, {3.6931003477972555`*^9, 
+   3.6931004297380066`*^9}, {3.6931008042036057`*^9, 
+   3.6931008244941673`*^9}, {3.6931008631488123`*^9, 3.693100873081359*^9}, {
+   3.6931009222069945`*^9, 3.6931009272770014`*^9}, {3.693169468649051*^9, 
+   3.6931694713547363`*^9}, {3.6931699652292767`*^9, 
+   3.6931699656504774`*^9}, {3.693170035395601*^9, 3.693170048242051*^9}, {
+   3.6931702497170076`*^9, 3.693170273796776*^9}, {3.69317041246425*^9, 
+   3.693170511034463*^9}, {3.693170746940055*^9, 3.6931707485780582`*^9}, {
+   3.693170836175014*^9, 3.693170855708248*^9}, {3.69618282933681*^9, 
+   3.6961828318328094`*^9}, 3.6961835093062096`*^9, {3.69618390606771*^9, 
+   3.6961839179629097`*^9}, {3.6972138893546777`*^9, 
+   3.6972138963202777`*^9}, {3.6972154868884563`*^9, 
+   3.6972155266344557`*^9}, {3.697215576139656*^9, 3.697215604643656*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"U", "=", 
+   RowBox[{"Interpolation", "[", 
+    RowBox[{"data", ",", 
+     RowBox[{"InterpolationOrder", "\[Rule]", "1"}]}], "]"}]}], 
+  ";"}]], "Input",
+ CellChangeTimes->{{3.693181996580098*^9, 3.693182007396429*^9}, {
+   3.693182219742758*^9, 3.6931822482568097`*^9}, {3.69618451545121*^9, 
+   3.6961845279712095`*^9}, 3.6972139437324777`*^9}],
+
+Cell[BoxData[
+ RowBox[{"Show", "[", 
+  RowBox[{
+   RowBox[{"Plot", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"100", 
+       RowBox[{"D", "[", 
+        RowBox[{
+         RowBox[{"Log", "[", 
+          RowBox[{"U", "[", "y", "]"}], "]"}], ",", "y"}], "]"}]}], "/.", 
+      RowBox[{"y", "\[Rule]", "yy"}]}], ",", 
+     RowBox[{"{", 
+      RowBox[{"yy", ",", 
+       RowBox[{"data", "[", 
+        RowBox[{"[", 
+         RowBox[{"1", ",", "1"}], "]"}], "]"}], ",", 
+       RowBox[{"data", "[", 
+        RowBox[{"[", 
+         RowBox[{
+          RowBox[{"-", "1"}], ",", "1"}], "]"}], "]"}]}], "}"}]}], "]"}], ",", 
+   RowBox[{"Plot", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"100", 
+       RowBox[{"D", "[", 
+        RowBox[{
+         RowBox[{"Log", "[", 
+          RowBox[{"1", "/", 
+           RowBox[{"Exp", "[", 
+            RowBox[{
+             RowBox[{"Normal", "[", "nlm", "]"}], "+", 
+             RowBox[{"\[Alpha]0", "*", 
+              RowBox[{"(", 
+               RowBox[{"y", "-", 
+                RowBox[{"data", "[", 
+                 RowBox[{"[", 
+                  RowBox[{"1", ",", "1"}], "]"}], "]"}]}], ")"}]}]}], "]"}]}],
+           "]"}], ",", "y"}], "]"}]}], "/.", 
+      RowBox[{"y", "\[Rule]", "yy"}]}], ",", 
+     RowBox[{"{", 
+      RowBox[{"yy", ",", 
+       RowBox[{"data", "[", 
+        RowBox[{"[", 
+         RowBox[{"1", ",", "1"}], "]"}], "]"}], ",", "2019"}], "}"}], ",", 
+     RowBox[{"PlotStyle", "\[Rule]", 
+      RowBox[{"Directive", "[", 
+       RowBox[{"Thick", ",", 
+        RowBox[{"Lighter", "[", "Red", "]"}], ",", 
+        RowBox[{"Opacity", "[", "0.7", "]"}]}], "]"}]}], ",", 
+     RowBox[{"PlotRange", "\[Rule]", "All"}]}], "]"}], ",", 
+   RowBox[{"PlotRange", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"data", "[", 
+          RowBox[{"[", 
+           RowBox[{"1", ",", "1"}], "]"}], "]"}], "-", "2"}], ",", "2020"}], 
+       "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"-", "5"}], ",", "15"}], "}"}]}], "}"}]}], ",", 
+   RowBox[{"AspectRatio", "\[Rule]", 
+    RowBox[{"1", "/", "2"}]}], ",", 
+   RowBox[{"ImageSize", "\[Rule]", 
+    RowBox[{"11", "*", "72"}]}], ",", 
+   RowBox[{"BaseStyle", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{"FontSize", "\[Rule]", "15"}], "}"}]}], ",", 
+   RowBox[{"Frame", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{"True", ",", "True", ",", "False", ",", "False"}], "}"}]}], ",", 
+   RowBox[{"FrameLabel", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{"\"\<Year\\n\>\"", ",", "\"\<\\n\!\(\*
+StyleBox[\"d\",
+FontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\"/\",
+FontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\"dt\",
+FontSlant->\"Italic\"]\) log \!\(\*
+StyleBox[\"P\",
+FontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\"(\",
+FontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\"t\",
+FontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\")\",
+FontSlant->\"Italic\"]\)\>\""}], "}"}]}], ",", 
+   RowBox[{"GridLines", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{"transitions", ",", 
+      RowBox[{"{", "}"}]}], "}"}]}], ",", 
+   RowBox[{"Axes", "\[Rule]", "False"}], ",", 
+   RowBox[{
+   "PlotLabel", "\[Rule]", 
+    "\"\<\\nDynamic equilibrium model: PCE inflation rate\>\""}]}], 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.693182012827239*^9, 3.6931821292893934`*^9}, {
+  3.6931822027083254`*^9, 3.6931822375939913`*^9}, {3.6931822837268753`*^9, 
+  3.6931823277911634`*^9}, {3.6961845377992096`*^9, 3.69618457946121*^9}, {
+  3.6972139509572773`*^9, 3.6972139512536774`*^9}, {3.697213989515278*^9, 
+  3.6972140439581776`*^9}, {3.697215565543256*^9, 3.697215566481256*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"ur", "=", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"1900", "+", 
+        FractionBox[
+         RowBox[{"FromDate", "[", 
+          RowBox[{"Normal", "[", 
+           RowBox[{"#", "[", 
+            RowBox[{"[", "1", "]"}], "]"}], "]"}], "]"}], 
+         RowBox[{"365.24", "*", "3600", "*", "24"}]], "+", 
+        RowBox[{"1", "/", "12.0"}]}], ",", 
+       RowBox[{"#", "[", 
+        RowBox[{"[", "2", "]"}], "]"}]}], "}"}], "&"}], "/@", 
+    RowBox[{"Drop", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+       "Import", "[", 
+        "\"\<C:\\\\Users\\\\dp864c\\\\Desktop\\\\SAVED \
+DESKTOP\\\\UNRATE.xls\>\"", "]"}], "[", 
+       RowBox[{"[", "1", "]"}], "]"}], ",", "11"}], "]"}]}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.6972291579249706`*^9, 3.6972291610157704`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"Show", "[", 
+  RowBox[{
+   RowBox[{"ListPlot", "[", 
+    RowBox[{"ur", ",", 
+     RowBox[{"Joined", "\[Rule]", "True"}]}], "]"}], ",", 
+   RowBox[{"Plot", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"100", 
+         RowBox[{"D", "[", 
+          RowBox[{
+           RowBox[{"Log", "[", 
+            RowBox[{"1", "/", 
+             RowBox[{"Exp", "[", 
+              RowBox[{
+               RowBox[{"Normal", "[", "nlm", "]"}], "+", 
+               RowBox[{"\[Alpha]0", "*", 
+                RowBox[{"(", 
+                 RowBox[{"y", "-", 
+                  RowBox[{"data", "[", 
+                   RowBox[{"[", 
+                    RowBox[{"1", ",", "1"}], "]"}], "]"}]}], ")"}]}]}], 
+              "]"}]}], "]"}], ",", "y"}], "]"}]}], "/.", 
+        RowBox[{"y", "\[Rule]", "yy"}]}], ")"}], "-", 
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"100", 
+         RowBox[{"D", "[", 
+          RowBox[{
+           RowBox[{"Log", "[", 
+            RowBox[{"U", "[", "y", "]"}], "]"}], ",", "y"}], "]"}]}], "/.", 
+        RowBox[{"y", "\[Rule]", "yy"}]}], ")"}]}], ",", 
+     RowBox[{"{", 
+      RowBox[{"yy", ",", 
+       RowBox[{"data", "[", 
+        RowBox[{"[", 
+         RowBox[{"1", ",", "1"}], "]"}], "]"}], ",", 
+       RowBox[{"data", "[", 
+        RowBox[{"[", 
+         RowBox[{
+          RowBox[{"-", "1"}], ",", "1"}], "]"}], "]"}]}], "}"}], ",", 
+     RowBox[{"PlotStyle", "\[Rule]", "Gray"}], ",", 
+     RowBox[{"PlotRange", "\[Rule]", "All"}]}], "]"}], ",", 
+   RowBox[{"PlotRange", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"data", "[", 
+          RowBox[{"[", 
+           RowBox[{"1", ",", "1"}], "]"}], "]"}], "-", "2"}], ",", "2020"}], 
+       "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"-", "8"}], ",", "19"}], "}"}]}], "}"}]}], ",", 
+   RowBox[{"AspectRatio", "\[Rule]", 
+    RowBox[{"1", "/", "2"}]}], ",", 
+   RowBox[{"ImageSize", "\[Rule]", 
+    RowBox[{"11", "*", "72"}]}], ",", 
+   RowBox[{"BaseStyle", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{"FontSize", "\[Rule]", "15"}], "}"}]}], ",", 
+   RowBox[{"Frame", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{"True", ",", "True", ",", "False", ",", "False"}], "}"}]}], ",", 
+   RowBox[{"FrameLabel", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{"\"\<Year\\n\>\"", ",", 
+      RowBox[{"\"\<\\n\!\(\*
+StyleBox[\"d\",
+FontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\"/\",
+FontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\"dt\",
+FontSlant->\"Italic\"]\) log \!\(\*
+StyleBox[SubscriptBox[
+StyleBox[\"P\",
+FontSlant->\"Italic\"], \"DE\"],
+FontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\"(\",
+FontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\"t\",
+FontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\")\",
+FontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\"-\",
+FontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\" \",
+FontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\"d\",
+FontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\"/\",
+FontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\"dt\",
+FontSlant->\"Italic\"]\) log \!\(\*
+StyleBox[\"P\",
+FontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\"(\",
+FontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\"t\",
+FontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\")\",
+FontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\" \",
+FontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\"[\",
+FontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\"%\",
+FontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\" \",
+FontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\"points\",
+FontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\"]\",
+FontSlant->\"Italic\"]\)\>\"", "<>", "\"\<\\nUnemployment rate [%]\>\""}]}], 
+     "}"}]}], ",", 
+   RowBox[{"GridLines", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", "}"}], ",", 
+      RowBox[{"{", "}"}]}], "}"}]}], ",", 
+   RowBox[{"Axes", "\[Rule]", "False"}], ",", 
+   RowBox[{
+   "PlotLabel", "\[Rule]", 
+    "\"\<\\nDifference from dynamic equilibrium model [gray] and u \
+[blue]\>\""}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.6972290151339703`*^9, 3.6972290240571704`*^9}, {
+  3.6972290638013706`*^9, 3.6972291323133707`*^9}, {3.6972291733573704`*^9, 
+  3.6972292377857704`*^9}, {3.6972293189805703`*^9, 3.6972293472109704`*^9}, {
+  3.6972293784823704`*^9, 3.6972294680991707`*^9}, {3.69722950768237*^9, 
+  3.6972295565087676`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"UR", "=", 
+   RowBox[{"Interpolation", "[", 
+    RowBox[{"ur", ",", 
+     RowBox[{"InterpolationOrder", "\[Rule]", "1"}]}], "]"}]}], 
+  ";"}]], "Input",
+ CellChangeTimes->{{3.6972296069220448`*^9, 3.697229615006793*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"temp", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"UR", "[", "yy", "]"}], ",", 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"100", 
+           RowBox[{"D", "[", 
+            RowBox[{
+             RowBox[{"Log", "[", 
+              RowBox[{"1", "/", 
+               RowBox[{"Exp", "[", 
+                RowBox[{
+                 RowBox[{"Normal", "[", "nlm", "]"}], "+", 
+                 RowBox[{"\[Alpha]0", "*", 
+                  RowBox[{"(", 
+                   RowBox[{"y", "-", 
+                    RowBox[{"data", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"1", ",", "1"}], "]"}], "]"}]}], ")"}]}]}], 
+                "]"}]}], "]"}], ",", "y"}], "]"}]}], "/.", 
+          RowBox[{"y", "\[Rule]", "yy"}]}], ")"}], "-", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"100", 
+           RowBox[{"D", "[", 
+            RowBox[{
+             RowBox[{"Log", "[", 
+              RowBox[{"U", "[", "y", "]"}], "]"}], ",", "y"}], "]"}]}], "/.", 
+          RowBox[{"y", "\[Rule]", "yy"}]}], ")"}]}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"yy", ",", 
+       RowBox[{"data", "[", 
+        RowBox[{"[", 
+         RowBox[{"1", ",", "1"}], "]"}], "]"}], ",", 
+       RowBox[{"data", "[", 
+        RowBox[{"[", 
+         RowBox[{
+          RowBox[{"-", "1"}], ",", "1"}], "]"}], "]"}], ",", 
+       RowBox[{"1", "/", "12"}]}], "}"}]}], "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.6972296182691717`*^9, 3.6972296579165177`*^9}, {
+  3.697229725958495*^9, 3.6972297389788246`*^9}, {3.697229874243474*^9, 
+  3.6972298909550743`*^9}, {3.697230222584674*^9, 3.6972302230526743`*^9}, {
+  3.697230763202124*^9, 3.697230766468524*^9}}],
+
+Cell[BoxData[{
+ RowBox[{"lm", "=", 
+  RowBox[{"LinearModelFit", "[", 
+   RowBox[{"temp", ",", "x", ",", "x"}], "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{"lm", "[", "\"\<RSquared\>\"", "]"}]}], "Input",
+ CellChangeTimes->{{3.697229898445074*^9, 3.697229939859474*^9}}],
+
+Cell[BoxData[
+ RowBox[{"ListPlot", "[", 
+  RowBox[{"temp", ",", 
+   RowBox[{"PlotRange", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"0", ",", "20"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"-", "10"}], ",", "10"}], "}"}]}], "}"}]}], ",", 
+   RowBox[{"AspectRatio", "\[Rule]", "1"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.697229663017685*^9, 3.6972297082682085`*^9}}]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{929, 837},
+WindowMargins->{{Automatic, 157}, {Automatic, 33}},
+FrontEndVersion->"10.3 for Microsoft Windows (64-bit) (October 9, 2015)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 201, 3, 63, "Section"],
+Cell[CellGroupData[{
+Cell[806, 29, 94, 1, 43, "Subsection"],
+Cell[903, 32, 174, 2, 30, "Text"],
+Cell[1080, 36, 2244, 58, 128, "Input"],
+Cell[3327, 96, 162, 3, 31, "Input"],
+Cell[3492, 101, 204, 3, 30, "Text"],
+Cell[3699, 106, 444, 14, 31, "Input"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[4180, 125, 109, 1, 43, "Subsection"],
+Cell[4292, 128, 146, 1, 30, "Text"],
+Cell[4441, 131, 296, 5, 31, "Input"],
+Cell[4740, 138, 861, 27, 52, "Input"],
+Cell[5604, 167, 1732, 47, 92, "Input"],
+Cell[7339, 216, 354, 7, 31, "Input"],
+Cell[7696, 225, 640, 17, 31, "Input"],
+Cell[8339, 244, 1233, 35, 72, "Input"],
+Cell[9575, 281, 123, 1, 30, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[9735, 287, 105, 1, 43, "Subsection"],
+Cell[9843, 290, 188, 2, 30, "Text"],
+Cell[10034, 294, 707, 15, 31, "Input"],
+Cell[10744, 311, 1496, 32, 106, "Input"],
+Cell[12243, 345, 128, 1, 30, "Text"],
+Cell[12374, 348, 383, 7, 31, "Input"],
+Cell[12760, 357, 1070, 30, 52, "Input"],
+Cell[13833, 389, 164, 2, 30, "Text"],
+Cell[14000, 393, 1190, 37, 52, "Input"],
+Cell[15193, 432, 159, 2, 30, "Text"],
+Cell[15355, 436, 1142, 36, 52, "Input"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[16534, 477, 108, 1, 43, "Subsection"],
+Cell[16645, 480, 213, 4, 30, "Text"],
+Cell[16861, 486, 1300, 37, 72, "Input"],
+Cell[18164, 525, 3580, 92, 152, "Input"],
+Cell[21747, 619, 381, 9, 31, "Input"],
+Cell[22131, 630, 3593, 104, 152, "Input"],
+Cell[25727, 736, 847, 25, 68, "Input"],
+Cell[26577, 763, 4265, 134, 172, "Input"],
+Cell[30845, 899, 255, 7, 31, "Input"],
+Cell[31103, 908, 1784, 48, 72, "Input"],
+Cell[32890, 958, 267, 5, 52, "Input"],
+Cell[33160, 965, 431, 12, 31, "Input"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
