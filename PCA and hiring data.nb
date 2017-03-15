@@ -1,0 +1,914 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 10.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     33564,        905]
+NotebookOptionsPosition[     32750,        878]
+NotebookOutlinePosition[     33095,        893]
+CellTagsIndexPosition[     33052,        890]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"labels", "=", 
+   RowBox[{"{", "\[IndentingNewLine]", 
+    RowBox[{
+    "\"\<Construction\>\"", ",", "\[IndentingNewLine]", 
+     "\"\<Durable Goods Manufacturing\>\"", ",", "\[IndentingNewLine]", 
+     "\"\<Nondurable Goods Manufacturing\>\"", ",", "\[IndentingNewLine]", 
+     "\"\<Trade, Transportation and Utilities\>\"", ",", 
+     "\[IndentingNewLine]", "\"\<Retail Trade\>\"", ",", 
+     "\[IndentingNewLine]", "\"\<Education and Health Services\>\"", ",", 
+     "\[IndentingNewLine]", "\"\<Health Care and Social Assistance\>\"", ",", 
+     "\[IndentingNewLine]", "\"\<Leisure and Hospitality\>\"", ",", 
+     "\[IndentingNewLine]", "\"\<Arts, Entertainment and Recreation\>\"", ",",
+      "\[IndentingNewLine]", "\"\<Accommodation and Food Services\>\""}], 
+    "\[IndentingNewLine]", "}"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.698586744244246*^9, 3.6985869459745293`*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"data2300", "=", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"1900", "+", 
+         FractionBox[
+          RowBox[{"FromDate", "[", 
+           RowBox[{"Normal", "[", 
+            RowBox[{"#", "[", 
+             RowBox[{"[", "1", "]"}], "]"}], "]"}], "]"}], 
+          RowBox[{"365.24", "*", "3600", "*", "24"}]], "+", 
+         RowBox[{"1", "/", "12"}]}], ",", 
+        RowBox[{"#", "[", 
+         RowBox[{"[", "2", "]"}], "]"}]}], "}"}], "&"}], "/@", 
+     RowBox[{"Drop", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{
+        "Import", "[", 
+         "\"\<C:\\\\Users\\\\Jason \
+Smith\\\\Desktop\\\\ECONDATA\\\\hires\\\\JTS2300HIL.xls\>\"", "]"}], "[", 
+        RowBox[{"[", "1", "]"}], "]"}], ",", "11"}], "]"}]}], ")"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"data3200", "=", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"1900", "+", 
+         FractionBox[
+          RowBox[{"FromDate", "[", 
+           RowBox[{"Normal", "[", 
+            RowBox[{"#", "[", 
+             RowBox[{"[", "1", "]"}], "]"}], "]"}], "]"}], 
+          RowBox[{"365.24", "*", "3600", "*", "24"}]], "+", 
+         RowBox[{"1", "/", "12"}]}], ",", 
+        RowBox[{"#", "[", 
+         RowBox[{"[", "2", "]"}], "]"}]}], "}"}], "&"}], "/@", 
+     RowBox[{"Drop", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{
+        "Import", "[", 
+         "\"\<C:\\\\Users\\\\Jason \
+Smith\\\\Desktop\\\\ECONDATA\\\\hires\\\\JTS3200HIL.xls\>\"", "]"}], "[", 
+        RowBox[{"[", "1", "]"}], "]"}], ",", "11"}], "]"}]}], ")"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"data3400", "=", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"1900", "+", 
+         FractionBox[
+          RowBox[{"FromDate", "[", 
+           RowBox[{"Normal", "[", 
+            RowBox[{"#", "[", 
+             RowBox[{"[", "1", "]"}], "]"}], "]"}], "]"}], 
+          RowBox[{"365.24", "*", "3600", "*", "24"}]], "+", 
+         RowBox[{"1", "/", "12"}]}], ",", 
+        RowBox[{"#", "[", 
+         RowBox[{"[", "2", "]"}], "]"}]}], "}"}], "&"}], "/@", 
+     RowBox[{"Drop", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{
+        "Import", "[", 
+         "\"\<C:\\\\Users\\\\Jason \
+Smith\\\\Desktop\\\\ECONDATA\\\\hires\\\\JTS3400HIL.xls\>\"", "]"}], "[", 
+        RowBox[{"[", "1", "]"}], "]"}], ",", "11"}], "]"}]}], ")"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"data4000", "=", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"1900", "+", 
+         FractionBox[
+          RowBox[{"FromDate", "[", 
+           RowBox[{"Normal", "[", 
+            RowBox[{"#", "[", 
+             RowBox[{"[", "1", "]"}], "]"}], "]"}], "]"}], 
+          RowBox[{"365.24", "*", "3600", "*", "24"}]], "+", 
+         RowBox[{"1", "/", "12"}]}], ",", 
+        RowBox[{"#", "[", 
+         RowBox[{"[", "2", "]"}], "]"}]}], "}"}], "&"}], "/@", 
+     RowBox[{"Drop", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{
+        "Import", "[", 
+         "\"\<C:\\\\Users\\\\Jason \
+Smith\\\\Desktop\\\\ECONDATA\\\\hires\\\\JTS4000HIL.xls\>\"", "]"}], "[", 
+        RowBox[{"[", "1", "]"}], "]"}], ",", "11"}], "]"}]}], ")"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"data4400", "=", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"1900", "+", 
+         FractionBox[
+          RowBox[{"FromDate", "[", 
+           RowBox[{"Normal", "[", 
+            RowBox[{"#", "[", 
+             RowBox[{"[", "1", "]"}], "]"}], "]"}], "]"}], 
+          RowBox[{"365.24", "*", "3600", "*", "24"}]], "+", 
+         RowBox[{"1", "/", "12"}]}], ",", 
+        RowBox[{"#", "[", 
+         RowBox[{"[", "2", "]"}], "]"}]}], "}"}], "&"}], "/@", 
+     RowBox[{"Drop", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{
+        "Import", "[", 
+         "\"\<C:\\\\Users\\\\Jason \
+Smith\\\\Desktop\\\\ECONDATA\\\\hires\\\\JTS4400HIL.xls\>\"", "]"}], "[", 
+        RowBox[{"[", "1", "]"}], "]"}], ",", "11"}], "]"}]}], ")"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"data6000", "=", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"1900", "+", 
+         FractionBox[
+          RowBox[{"FromDate", "[", 
+           RowBox[{"Normal", "[", 
+            RowBox[{"#", "[", 
+             RowBox[{"[", "1", "]"}], "]"}], "]"}], "]"}], 
+          RowBox[{"365.24", "*", "3600", "*", "24"}]], "+", 
+         RowBox[{"1", "/", "12"}]}], ",", 
+        RowBox[{"#", "[", 
+         RowBox[{"[", "2", "]"}], "]"}]}], "}"}], "&"}], "/@", 
+     RowBox[{"Drop", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{
+        "Import", "[", 
+         "\"\<C:\\\\Users\\\\Jason \
+Smith\\\\Desktop\\\\ECONDATA\\\\hires\\\\JTS6000HIL.xls\>\"", "]"}], "[", 
+        RowBox[{"[", "1", "]"}], "]"}], ",", "11"}], "]"}]}], ")"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"data6200", "=", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"1900", "+", 
+         FractionBox[
+          RowBox[{"FromDate", "[", 
+           RowBox[{"Normal", "[", 
+            RowBox[{"#", "[", 
+             RowBox[{"[", "1", "]"}], "]"}], "]"}], "]"}], 
+          RowBox[{"365.24", "*", "3600", "*", "24"}]], "+", 
+         RowBox[{"1", "/", "12"}]}], ",", 
+        RowBox[{"#", "[", 
+         RowBox[{"[", "2", "]"}], "]"}]}], "}"}], "&"}], "/@", 
+     RowBox[{"Drop", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{
+        "Import", "[", 
+         "\"\<C:\\\\Users\\\\Jason \
+Smith\\\\Desktop\\\\ECONDATA\\\\hires\\\\JTS6200HIL.xls\>\"", "]"}], "[", 
+        RowBox[{"[", "1", "]"}], "]"}], ",", "11"}], "]"}]}], ")"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"data7000", "=", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"1900", "+", 
+         FractionBox[
+          RowBox[{"FromDate", "[", 
+           RowBox[{"Normal", "[", 
+            RowBox[{"#", "[", 
+             RowBox[{"[", "1", "]"}], "]"}], "]"}], "]"}], 
+          RowBox[{"365.24", "*", "3600", "*", "24"}]], "+", 
+         RowBox[{"1", "/", "12"}]}], ",", 
+        RowBox[{"#", "[", 
+         RowBox[{"[", "2", "]"}], "]"}]}], "}"}], "&"}], "/@", 
+     RowBox[{"Drop", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{
+        "Import", "[", 
+         "\"\<C:\\\\Users\\\\Jason \
+Smith\\\\Desktop\\\\ECONDATA\\\\hires\\\\JTS7000HIL.xls\>\"", "]"}], "[", 
+        RowBox[{"[", "1", "]"}], "]"}], ",", "11"}], "]"}]}], ")"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"data7100", "=", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"1900", "+", 
+         FractionBox[
+          RowBox[{"FromDate", "[", 
+           RowBox[{"Normal", "[", 
+            RowBox[{"#", "[", 
+             RowBox[{"[", "1", "]"}], "]"}], "]"}], "]"}], 
+          RowBox[{"365.24", "*", "3600", "*", "24"}]], "+", 
+         RowBox[{"1", "/", "12"}]}], ",", 
+        RowBox[{"#", "[", 
+         RowBox[{"[", "2", "]"}], "]"}]}], "}"}], "&"}], "/@", 
+     RowBox[{"Drop", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{
+        "Import", "[", 
+         "\"\<C:\\\\Users\\\\Jason \
+Smith\\\\Desktop\\\\ECONDATA\\\\hires\\\\JTS7100HIL.xls\>\"", "]"}], "[", 
+        RowBox[{"[", "1", "]"}], "]"}], ",", "11"}], "]"}]}], ")"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"data7200", "=", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"1900", "+", 
+         FractionBox[
+          RowBox[{"FromDate", "[", 
+           RowBox[{"Normal", "[", 
+            RowBox[{"#", "[", 
+             RowBox[{"[", "1", "]"}], "]"}], "]"}], "]"}], 
+          RowBox[{"365.24", "*", "3600", "*", "24"}]], "+", 
+         RowBox[{"1", "/", "12"}]}], ",", 
+        RowBox[{"#", "[", 
+         RowBox[{"[", "2", "]"}], "]"}]}], "}"}], "&"}], "/@", 
+     RowBox[{"Drop", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{
+        "Import", "[", 
+         "\"\<C:\\\\Users\\\\Jason \
+Smith\\\\Desktop\\\\ECONDATA\\\\hires\\\\JTS7200HIL.xls\>\"", "]"}], "[", 
+        RowBox[{"[", "1", "]"}], "]"}], ",", "11"}], "]"}]}], ")"}]}], 
+  ";"}]}], "Input",
+ CellChangeTimes->{{3.698584630026381*^9, 3.6985846624732428`*^9}, {
+  3.698584698006506*^9, 3.698584793542285*^9}}],
+
+Cell[BoxData[
+ RowBox[{"ListPlot", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+    "data2300", ",", "data3200", ",", "data3400", ",", "data4000", ",", 
+     "data4400", ",", "data6000", ",", "data6200", ",", "data7000", ",", 
+     "data7100", ",", "data7200"}], "}"}], ",", 
+   RowBox[{"PlotRange", "\[Rule]", "All"}], ",", 
+   RowBox[{"Joined", "\[Rule]", "True"}], ",", 
+   RowBox[{"Frame", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{"True", ",", "True", ",", "False", ",", "False"}], "}"}]}], ",", 
+   RowBox[{"ImageSize", "\[Rule]", "Large"}], ",", 
+   RowBox[{"AspectRatio", "\[Rule]", 
+    RowBox[{"1", "/", "2"}]}], ",", 
+   RowBox[{"BaseStyle", "\[Rule]", 
+    RowBox[{"FontSize", "\[Rule]", "15"}]}], ",", 
+   RowBox[{
+   "PlotLabel", "\[Rule]", 
+    "\"\<\\nJob Openings and Labor Turnover: Hires data\>\""}], ",", 
+   RowBox[{"FrameLabel", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+     "\"\<Year\\n\>\"", ",", "\"\<\\nHires [kJobs]\>\"", ",", "\"\<\>\"", 
+      ",", "\"\<\>\""}], "}"}]}], ",", 
+   RowBox[{"PlotLegends", "\[Rule]", "labels"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.69858467786087*^9, 3.6985846831336794`*^9}, {
+  3.6985848020608997`*^9, 3.6985848615954065`*^9}, {3.698588715652196*^9, 
+  3.698588848386402*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"data", "=", 
+   RowBox[{"{", 
+    RowBox[{
+    "data2300", ",", "data3200", ",", "data3400", ",", "data4000", ",", 
+     "data4400", ",", "data6000", ",", "data6200", ",", "data7000", ",", 
+     "data7100", ",", "data7200"}], "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"datanorm", "=", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+     "data2300", ",", "data3200", ",", "data3400", ",", "data4000", ",", 
+      "data4400", ",", "data6000", ",", "data6200", ",", "data7000", ",", 
+      "data7100", ",", "data7200"}], "}"}], "[", 
+    RowBox[{"[", 
+     RowBox[{"All", ",", "5", ",", "2"}], "]"}], "]"}]}], ";", " ", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "arbitrarily", " ", "normalize", " ", "the", " ", "fifth", " ", "point", 
+    " ", "in", " ", "each", " ", "series", " ", "to", " ", "1"}], " ", "*)"}],
+   "\[IndentingNewLine]", 
+  RowBox[{"data", "=", 
+   RowBox[{"data", "[", 
+    RowBox[{"[", 
+     RowBox[{"All", ",", "All", ",", "2"}], "]"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"dataraw", "=", "data"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Do", "[", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"data", "[", 
+      RowBox[{"[", "ii", "]"}], "]"}], "=", 
+     RowBox[{
+      RowBox[{"data", "[", 
+       RowBox[{"[", "ii", "]"}], "]"}], "/", 
+      RowBox[{"datanorm", "[", 
+       RowBox[{"[", "ii", "]"}], "]"}]}]}], ",", 
+    RowBox[{"{", 
+     RowBox[{"ii", ",", 
+      RowBox[{"Length", "[", "datanorm", "]"}]}], "}"}]}], "]"}], 
+  ";"}]}], "Input",
+ CellChangeTimes->{{3.6985848937020645`*^9, 3.698584932306533*^9}, {
+   3.6985858316495695`*^9, 3.698585937016759*^9}, {3.6985859848426447`*^9, 
+   3.6985860349669385`*^9}, {3.6985862756375833`*^9, 3.698586283969998*^9}, 
+   3.698588895579886*^9, {3.69859062802248*^9, 3.698590664619545*^9}}],
+
+Cell[BoxData[
+ RowBox[{"ListPlot", "[", 
+  RowBox[{"data", ",", 
+   RowBox[{"PlotRange", "\[Rule]", "All"}], ",", 
+   RowBox[{"Joined", "\[Rule]", "True"}], ",", 
+   RowBox[{"Frame", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{"True", ",", "True", ",", "False", ",", "False"}], "}"}]}], ",", 
+   RowBox[{"FrameTicks", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"Automatic", ",", "Automatic"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"Table", "[", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"ii", ",", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{"ii", "-", "1"}], ")"}], "/", "12"}], "+", "2001."}]}],
+            "}"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"ii", ",", "1", ",", 
+            RowBox[{
+             RowBox[{"Dimensions", "[", "data", "]"}], "[", 
+             RowBox[{"[", "2", "]"}], "]"}], ",", 
+            RowBox[{"2", "*", "12"}]}], "}"}]}], "]"}], ",", "None"}], 
+       "}"}]}], "}"}]}], ",", 
+   RowBox[{"ImageSize", "\[Rule]", "Large"}], ",", 
+   RowBox[{"AspectRatio", "\[Rule]", 
+    RowBox[{"1", "/", "2"}]}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.6985860454017572`*^9, 3.6985860495357647`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"Dimensions", "[", "data", "]"}]], "Input",
+ CellChangeTimes->{{3.6985849348513374`*^9, 3.698584953860775*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"pca", "=", 
+   RowBox[{"KarhunenLoeveDecomposition", "[", "data", "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.6985850583849673`*^9, 3.6985850689257884`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"ListPlot", "[", 
+  RowBox[{
+   RowBox[{"pca", "[", 
+    RowBox[{"[", 
+     RowBox[{"1", ",", "All"}], "]"}], "]"}], ",", 
+   RowBox[{"Axes", "\[Rule]", "False"}], ",", 
+   RowBox[{"PlotRange", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"-", "0.6"}], ",", "3.6"}], "}"}]}], ",", 
+   RowBox[{"Joined", "\[Rule]", "True"}], ",", 
+   RowBox[{"Frame", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{"True", ",", "True", ",", "False", ",", "False"}], "}"}]}], ",", 
+   RowBox[{"FrameTicks", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"Automatic", ",", "Automatic"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"Table", "[", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"ii", ",", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{"ii", "-", "1"}], ")"}], "/", "12"}], "+", "2001"}]}], 
+           "}"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"ii", ",", "1", ",", 
+            RowBox[{
+             RowBox[{"Dimensions", "[", "data", "]"}], "[", 
+             RowBox[{"[", "2", "]"}], "]"}], ",", 
+            RowBox[{"2", "*", "12"}]}], "}"}]}], "]"}], ",", "None"}], 
+       "}"}]}], "}"}]}], ",", 
+   RowBox[{"ImageSize", "\[Rule]", "Large"}], ",", 
+   RowBox[{"AspectRatio", "\[Rule]", 
+    RowBox[{"1", "/", "2"}]}], ",", 
+   RowBox[{"BaseStyle", "\[Rule]", 
+    RowBox[{"FontSize", "\[Rule]", "15"}]}], ",", 
+   RowBox[{
+   "PlotLabel", "\[Rule]", 
+    "\"\<\\nPrincipal Components (normalized data)\>\""}], ",", 
+   RowBox[{"FrameLabel", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+     "\"\<Year\\n\>\"", ",", "\"\<\>\"", ",", "\"\<\>\"", ",", "\"\<\>\""}], 
+     "}"}]}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.6985850708757915`*^9, 3.69858513473151*^9}, {
+   3.698585179544591*^9, 3.6985851981458244`*^9}, {3.698585303637412*^9, 
+   3.698585406016198*^9}, {3.6985854380902553`*^9, 3.6985855666702847`*^9}, {
+   3.6985884015346217`*^9, 3.6985884347584815`*^9}, 3.6985884804381638`*^9, {
+   3.6985891465333414`*^9, 3.6985891717021856`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"ListPlot", "[", 
+  RowBox[{
+   RowBox[{"pca", "[", 
+    RowBox[{"[", 
+     RowBox[{"1", ",", 
+      RowBox[{"{", 
+       RowBox[{"1", ",", "2"}], "}"}]}], "]"}], "]"}], ",", 
+   RowBox[{"Axes", "\[Rule]", "False"}], ",", 
+   RowBox[{"PlotRange", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"-", "0.6"}], ",", "3.6"}], "}"}]}], ",", 
+   RowBox[{"Joined", "\[Rule]", "True"}], ",", 
+   RowBox[{"Frame", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{"True", ",", "True", ",", "False", ",", "False"}], "}"}]}], ",", 
+   RowBox[{"FrameTicks", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"Automatic", ",", "Automatic"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"Table", "[", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"ii", ",", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{"ii", "-", "1"}], ")"}], "/", "12"}], "+", "2001"}]}], 
+           "}"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"ii", ",", "1", ",", 
+            RowBox[{
+             RowBox[{"Dimensions", "[", "data", "]"}], "[", 
+             RowBox[{"[", "2", "]"}], "]"}], ",", 
+            RowBox[{"2", "*", "12"}]}], "}"}]}], "]"}], ",", "None"}], 
+       "}"}]}], "}"}]}], ",", 
+   RowBox[{"ImageSize", "\[Rule]", "Large"}], ",", 
+   RowBox[{"AspectRatio", "\[Rule]", 
+    RowBox[{"1", "/", "2"}]}], ",", 
+   RowBox[{"BaseStyle", "\[Rule]", 
+    RowBox[{"FontSize", "\[Rule]", "15"}]}], ",", 
+   RowBox[{
+   "PlotLabel", "\[Rule]", 
+    "\"\<\\nPrincipal Components (normalized data)\>\""}], ",", 
+   RowBox[{"FrameLabel", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+     "\"\<Year\\n\>\"", ",", "\"\<\>\"", ",", "\"\<\>\"", ",", "\"\<\>\""}], 
+     "}"}]}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.6985885499436865`*^9, 3.6985885525176916`*^9}, {
+  3.698588597587175*^9, 3.6985885977431755`*^9}, {3.6985891608581667`*^9, 
+  3.6985891777237964`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"ArrayPlot", "[", 
+  RowBox[{
+   RowBox[{"Abs", "[", 
+    RowBox[{"pca", "[", 
+     RowBox[{"[", "2", "]"}], "]"}], "]"}], ",", 
+   RowBox[{"Mesh", "\[Rule]", "True"}], ",", 
+   RowBox[{"Frame", "\[Rule]", "True"}], ",", 
+   RowBox[{"FrameTicks", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"True", ",", "False"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"True", ",", "False"}], "}"}]}], "}"}]}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.698585728268783*^9, 3.698585731843392*^9}, {
+  3.6985857725382643`*^9, 3.69858577559127*^9}, {3.6985865115208254`*^9, 
+  3.6985865136892295`*^9}, {3.698586559759512*^9, 3.698586580451148*^9}, {
+  3.6985866106338043`*^9, 3.698586636747651*^9}, {3.698587117935486*^9, 
+  3.698587133773514*^9}}],
+
+Cell[BoxData[
+ RowBox[{"labels2", "=", 
+  RowBox[{"{", "\[IndentingNewLine]", 
+   RowBox[{
+   "\"\<Cyclical\>\"", ",", "\[IndentingNewLine]", "\"\<Growth/Decline\>\"", 
+    ",", "\[IndentingNewLine]", "\"\<\>\"", ",", "\[IndentingNewLine]", 
+    "\"\<\>\"", ",", "\[IndentingNewLine]", "\"\<\>\"", ",", 
+    "\[IndentingNewLine]", "\"\<\>\"", ",", "\[IndentingNewLine]", "\"\<\>\"",
+     ",", "\[IndentingNewLine]", "\"\<\>\"", ",", "\[IndentingNewLine]", 
+    "\"\<\>\"", ",", "\[IndentingNewLine]", "\"\<\>\""}], "}"}]}]], "Input",
+ CellChangeTimes->{{3.698588093727459*^9, 3.6985881796658163`*^9}, {
+  3.6985882446181316`*^9, 3.698588256885753*^9}, {3.698588344665715*^9, 
+  3.698588345320916*^9}, {3.6985885736965322`*^9, 3.6985885761633368`*^9}, {
+  3.6985886123880014`*^9, 3.6985886341744423`*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"index", "=", "2"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Show", "[", 
+  RowBox[{"GraphicsGrid", "[", 
+   RowBox[{"{", 
+    RowBox[{"{", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"ListPlot", "[", 
+       RowBox[{
+        RowBox[{"pca", "[", 
+         RowBox[{"[", 
+          RowBox[{"1", ",", "index"}], "]"}], "]"}], ",", 
+        RowBox[{"PlotRange", "\[Rule]", "All"}], ",", 
+        RowBox[{"Joined", "\[Rule]", "True"}], ",", "\[IndentingNewLine]", 
+        RowBox[{"Frame", "\[Rule]", 
+         RowBox[{"{", 
+          RowBox[{"True", ",", "True", ",", "False", ",", "False"}], "}"}]}], 
+        ",", 
+        RowBox[{"PlotStyle", "\[Rule]", 
+         RowBox[{"Directive", "[", 
+          RowBox[{
+           RowBox[{"ColorData", "[", "97", "]"}], "[", "index", "]"}], 
+          "]"}]}], ",", 
+        RowBox[{"FrameTicks", "\[Rule]", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{"Automatic", ",", "Automatic"}], "}"}], ",", 
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"Table", "[", 
+              RowBox[{
+               RowBox[{"{", 
+                RowBox[{"ii", ",", 
+                 RowBox[{
+                  RowBox[{
+                   RowBox[{"(", 
+                    RowBox[{"ii", "-", "1"}], ")"}], "/", "12"}], "+", 
+                  "2001"}]}], "}"}], ",", 
+               RowBox[{"{", 
+                RowBox[{"ii", ",", "1", ",", 
+                 RowBox[{
+                  RowBox[{"Dimensions", "[", "data", "]"}], "[", 
+                  RowBox[{"[", "2", "]"}], "]"}], ",", 
+                 RowBox[{"2", "*", "12"}]}], "}"}]}], "]"}], ",", "None"}], 
+            "}"}]}], "}"}]}], ",", 
+        RowBox[{"ImageSize", "\[Rule]", "Large"}], ",", 
+        RowBox[{"AspectRatio", "\[Rule]", 
+         RowBox[{"1", "/", "2"}]}], ",", 
+        RowBox[{"BaseStyle", "\[Rule]", 
+         RowBox[{"FontSize", "\[Rule]", "15"}]}], ",", 
+        RowBox[{"PlotLabel", "\[Rule]", 
+         RowBox[{"\"\<\\nPrincipal Component \>\"", "<>", 
+          RowBox[{"ToString", "[", "index", "]"}], "<>", 
+          "\"\< (normalized data)\>\"", "<>", 
+          RowBox[{"If", "[", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"labels2", "[", 
+              RowBox[{"[", "index", "]"}], "]"}], "\[NotEqual]", "\"\<\>\""}],
+             ",", 
+            RowBox[{"\"\<\\n'\>\"", "<>", 
+             RowBox[{"labels2", "[", 
+              RowBox[{"[", "index", "]"}], "]"}], "<>", "\"\<'\>\""}], ",", 
+            "\"\<\>\""}], "]"}]}]}]}], "]"}], ",", 
+      RowBox[{"BarChart", "[", 
+       RowBox[{
+        RowBox[{"pca", "[", 
+         RowBox[{"[", 
+          RowBox[{"2", ",", "index"}], "]"}], "]"}], ",", 
+        RowBox[{"BarOrigin", "\[Rule]", "Left"}], ",", 
+        RowBox[{"ChartStyle", "\[Rule]", 
+         RowBox[{"Directive", "[", 
+          RowBox[{
+           RowBox[{"Opacity", "[", "0.5", "]"}], ",", 
+           RowBox[{
+            RowBox[{"ColorData", "[", "97", "]"}], "[", "index", "]"}]}], 
+          "]"}]}], ",", 
+        RowBox[{"ChartLabels", "\[Rule]", 
+         RowBox[{"Placed", "[", 
+          RowBox[{"labels", ",", "Before"}], "]"}]}], ",", 
+        RowBox[{"BaseStyle", "\[Rule]", 
+         RowBox[{"FontSize", "\[Rule]", "15"}]}], ",", 
+        RowBox[{
+        "PlotLabel", "\[Rule]", "\"\<\\nEigenvector components\>\""}]}], 
+       "]"}]}], "}"}], "}"}], "]"}], "]"}]}], "Input",
+ CellChangeTimes->{{3.6985861556227574`*^9, 3.698586258225349*^9}, {
+   3.6985871560457535`*^9, 3.6985872730823665`*^9}, {3.6985873329502754`*^9, 
+   3.6985874024375997`*^9}, {3.6985875301006327`*^9, 
+   3.6985876043561687`*^9}, {3.6985876530754547`*^9, 
+   3.6985876573674626`*^9}, {3.6985876889871187`*^9, 
+   3.6985876956905313`*^9}, {3.698587761065052*^9, 3.6985879421151853`*^9}, 
+   3.698588118221506*^9, {3.6985882177126837`*^9, 3.6985882312771077`*^9}, {
+   3.698588263110164*^9, 3.698588303210438*^9}, 3.698588334802498*^9, {
+   3.6985884494481077`*^9, 3.6985884763509564`*^9}, {3.69858894095537*^9, 
+   3.6985889645154114`*^9}, {3.6985890025996866`*^9, 3.6985891245333023`*^9}, 
+   3.69858919117502*^9, 3.6985892918156033`*^9, {3.6985894378964667`*^9, 
+   3.698589457896702*^9}, {3.6985894925729637`*^9, 3.6985894927913637`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"Table", "[", 
+  RowBox[{
+   RowBox[{"Mean", "[", 
+    RowBox[{"Abs", "[", 
+     RowBox[{"pca", "[", 
+      RowBox[{"[", 
+       RowBox[{"1", ",", "index"}], "]"}], "]"}], "]"}], "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"index", ",", "1", ",", 
+     RowBox[{"Length", "[", "labels", "]"}]}], "}"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.6985895554560747`*^9, 3.69858957517751*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"index", "=", "10"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Show", "[", 
+  RowBox[{"GraphicsGrid", "[", 
+   RowBox[{"{", 
+    RowBox[{"{", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"ListPlot", "[", 
+       RowBox[{
+        RowBox[{"dataraw", "[", 
+         RowBox[{"[", "index", "]"}], "]"}], ",", 
+        RowBox[{"PlotRange", "\[Rule]", "All"}], ",", 
+        RowBox[{"Joined", "\[Rule]", "True"}], ",", "\[IndentingNewLine]", 
+        RowBox[{"Frame", "\[Rule]", 
+         RowBox[{"{", 
+          RowBox[{"True", ",", "True", ",", "False", ",", "False"}], "}"}]}], 
+        ",", 
+        RowBox[{"PlotStyle", "\[Rule]", 
+         RowBox[{"Directive", "[", 
+          RowBox[{
+           RowBox[{"ColorData", "[", "97", "]"}], "[", "index", "]"}], 
+          "]"}]}], ",", 
+        RowBox[{"FrameTicks", "\[Rule]", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{"Automatic", ",", "Automatic"}], "}"}], ",", 
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"Table", "[", 
+              RowBox[{
+               RowBox[{"{", 
+                RowBox[{"ii", ",", 
+                 RowBox[{
+                  RowBox[{
+                   RowBox[{"(", 
+                    RowBox[{"ii", "-", "1"}], ")"}], "/", "12"}], "+", 
+                  "2001"}]}], "}"}], ",", 
+               RowBox[{"{", 
+                RowBox[{"ii", ",", "1", ",", 
+                 RowBox[{
+                  RowBox[{"Dimensions", "[", "data", "]"}], "[", 
+                  RowBox[{"[", "2", "]"}], "]"}], ",", 
+                 RowBox[{"2", "*", "12"}]}], "}"}]}], "]"}], ",", "None"}], 
+            "}"}]}], "}"}]}], ",", 
+        RowBox[{"ImageSize", "\[Rule]", "Large"}], ",", 
+        RowBox[{"AspectRatio", "\[Rule]", 
+         RowBox[{"1", "/", "2"}]}], ",", 
+        RowBox[{"PlotLabel", "\[Rule]", 
+         RowBox[{"\"\<\\n\>\"", "<>", 
+          RowBox[{"labels", "[", 
+           RowBox[{"[", "index", "]"}], "]"}]}]}], ",", 
+        RowBox[{"BaseStyle", "\[Rule]", 
+         RowBox[{"FontSize", "\[Rule]", "15"}]}]}], "]"}], ",", 
+      RowBox[{"BarChart", "[", 
+       RowBox[{
+        RowBox[{"pca", "[", 
+         RowBox[{"[", 
+          RowBox[{"2", ",", "All", ",", "index"}], "]"}], "]"}], ",", 
+        RowBox[{"PlotRange", "\[Rule]", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"-", "2"}], ",", "2"}], "}"}], ",", "Automatic"}], 
+          "}"}]}], ",", 
+        RowBox[{"BarOrigin", "\[Rule]", "Left"}], ",", 
+        RowBox[{"ChartStyle", "\[Rule]", 
+         RowBox[{"Directive", "[", 
+          RowBox[{
+           RowBox[{"Opacity", "[", "0.5", "]"}], ",", 
+           RowBox[{
+            RowBox[{"ColorData", "[", "97", "]"}], "[", "index", "]"}]}], 
+          "]"}]}], ",", 
+        RowBox[{"ChartLabels", "\[Rule]", 
+         RowBox[{"Placed", "[", 
+          RowBox[{"labels2", ",", "Before"}], "]"}]}], ",", 
+        RowBox[{"BaseStyle", "\[Rule]", 
+         RowBox[{"FontSize", "\[Rule]", "15"}]}], ",", 
+        RowBox[{
+        "PlotLabel", "\[Rule]", "\"\<\\nEigenvector components\>\""}]}], 
+       "]"}]}], "}"}], "}"}], "]"}], "]"}]}], "Input",
+ CellChangeTimes->{{3.698590008719801*^9, 3.698590104227971*^9}, {
+  3.6985901357302284`*^9, 3.698590143432443*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"index", "=", "1"}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{"Table", "[", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"Show", "[", 
+    RowBox[{"GraphicsGrid", "[", 
+     RowBox[{"{", 
+      RowBox[{"{", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"ListPlot", "[", 
+         RowBox[{
+          RowBox[{"dataraw", "[", 
+           RowBox[{"[", "index", "]"}], "]"}], ",", 
+          RowBox[{"PlotRange", "\[Rule]", "All"}], ",", 
+          RowBox[{"Joined", "\[Rule]", "True"}], ",", "\[IndentingNewLine]", 
+          RowBox[{"Frame", "\[Rule]", 
+           RowBox[{"{", 
+            RowBox[{"True", ",", "True", ",", "False", ",", "False"}], 
+            "}"}]}], ",", 
+          RowBox[{"PlotStyle", "\[Rule]", 
+           RowBox[{"Directive", "[", 
+            RowBox[{
+             RowBox[{"ColorData", "[", "97", "]"}], "[", "index", "]"}], 
+            "]"}]}], ",", 
+          RowBox[{"FrameTicks", "\[Rule]", 
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{"Automatic", ",", "Automatic"}], "}"}], ",", 
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"Table", "[", 
+                RowBox[{
+                 RowBox[{"{", 
+                  RowBox[{"ii", ",", 
+                   RowBox[{
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"ii", "-", "1"}], ")"}], "/", "12"}], "+", 
+                    "2001"}]}], "}"}], ",", 
+                 RowBox[{"{", 
+                  RowBox[{"ii", ",", "1", ",", 
+                   RowBox[{
+                    RowBox[{"Dimensions", "[", "data", "]"}], "[", 
+                    RowBox[{"[", "2", "]"}], "]"}], ",", 
+                   RowBox[{"2", "*", "12"}]}], "}"}]}], "]"}], ",", "None"}], 
+              "}"}]}], "}"}]}], ",", 
+          RowBox[{"ImageSize", "\[Rule]", "Large"}], ",", 
+          RowBox[{"AspectRatio", "\[Rule]", 
+           RowBox[{"1", "/", "2"}]}], ",", 
+          RowBox[{"PlotLabel", "\[Rule]", 
+           RowBox[{"\"\<\\n\>\"", "<>", 
+            RowBox[{"labels", "[", 
+             RowBox[{"[", "index", "]"}], "]"}]}]}], ",", 
+          RowBox[{"BaseStyle", "\[Rule]", 
+           RowBox[{"FontSize", "\[Rule]", "15"}]}]}], "]"}], ",", 
+        RowBox[{"BarChart", "[", 
+         RowBox[{
+          RowBox[{"pca", "[", 
+           RowBox[{"[", 
+            RowBox[{"2", ",", "All", ",", "index"}], "]"}], "]"}], ",", 
+          RowBox[{"PlotRange", "\[Rule]", 
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"-", "2"}], ",", "2"}], "}"}], ",", "Automatic"}], 
+            "}"}]}], ",", 
+          RowBox[{"BarOrigin", "\[Rule]", "Left"}], ",", 
+          RowBox[{"ChartStyle", "\[Rule]", 
+           RowBox[{"Directive", "[", 
+            RowBox[{
+             RowBox[{"Opacity", "[", "0.5", "]"}], ",", 
+             RowBox[{
+              RowBox[{"ColorData", "[", "97", "]"}], "[", "index", "]"}]}], 
+            "]"}]}], ",", 
+          RowBox[{"ChartLabels", "\[Rule]", 
+           RowBox[{"Placed", "[", 
+            RowBox[{"labels2", ",", "Before"}], "]"}]}], ",", 
+          RowBox[{"BaseStyle", "\[Rule]", 
+           RowBox[{"FontSize", "\[Rule]", "15"}]}], ",", 
+          RowBox[{
+          "PlotLabel", "\[Rule]", "\"\<\\nEigenvector components\>\""}]}], 
+         "]"}]}], "}"}], "}"}], "]"}], "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"index", ",", "1", ",", 
+     RowBox[{"Length", "[", "labels", "]"}]}], "}"}]}], "]"}]}], "Input",
+ CellChangeTimes->{{3.6985862975026317`*^9, 3.698586373972375*^9}, 
+   3.698586407891038*^9, 3.6985867225250072`*^9, {3.6985869764436255`*^9, 
+   3.698587046761152*^9}, 3.698587316186846*^9, 3.6985879860764637`*^9, {
+   3.6985880389793587`*^9, 3.6985880905284534`*^9}, 3.698588138852743*^9, {
+   3.698588195994445*^9, 3.698588202765857*^9}, {3.6985886235916233`*^9, 
+   3.6985886444326606`*^9}, {3.6985893165194473`*^9, 3.698589369668745*^9}, {
+   3.698589480288742*^9, 3.6985894833931475`*^9}, 3.6985895389890456`*^9, {
+   3.6985896024649625`*^9, 3.6985896937737246`*^9}, {3.6985898650307713`*^9, 
+   3.6985899139541864`*^9}}]
+},
+WindowSize->{1401, 858},
+WindowMargins->{{81, Automatic}, {Automatic, 27}},
+FrontEndVersion->"10.3 for Microsoft Windows (64-bit) (October 9, 2015)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 922, 16, 252, "Input"],
+Cell[1483, 38, 8548, 262, 370, "Input"],
+Cell[10034, 302, 1249, 29, 72, "Input"],
+Cell[11286, 333, 1846, 48, 132, "Input"],
+Cell[13135, 383, 1267, 34, 72, "Input"],
+Cell[14405, 419, 134, 2, 31, "Input"],
+Cell[14542, 423, 196, 4, 31, "Input"],
+Cell[14741, 429, 2109, 55, 72, "Input"],
+Cell[16853, 486, 1985, 55, 72, "Input"],
+Cell[18841, 543, 796, 19, 31, "Input"],
+Cell[19640, 564, 804, 13, 232, "Input"],
+Cell[20447, 579, 4298, 98, 192, "Input"],
+Cell[24748, 679, 408, 11, 31, "Input"],
+Cell[25159, 692, 3347, 84, 172, "Input"],
+Cell[28509, 778, 4237, 98, 212, "Input"]
+}
+]
+*)
+
+(* End of internal cache information *)
