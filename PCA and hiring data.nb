@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[     33564,        905]
-NotebookOptionsPosition[     32750,        878]
-NotebookOutlinePosition[     33095,        893]
-CellTagsIndexPosition[     33052,        890]
+NotebookDataLength[     36677,        982]
+NotebookOptionsPosition[     35860,        955]
+NotebookOutlinePosition[     36205,        970]
+CellTagsIndexPosition[     36162,        967]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -32,9 +32,12 @@ Cell[BoxData[
      "\[IndentingNewLine]", "\"\<Health Care and Social Assistance\>\"", ",", 
      "\[IndentingNewLine]", "\"\<Leisure and Hospitality\>\"", ",", 
      "\[IndentingNewLine]", "\"\<Arts, Entertainment and Recreation\>\"", ",",
-      "\[IndentingNewLine]", "\"\<Accommodation and Food Services\>\""}], 
-    "\[IndentingNewLine]", "}"}]}], ";"}]], "Input",
- CellChangeTimes->{{3.698586744244246*^9, 3.6985869459745293`*^9}}],
+      "\[IndentingNewLine]", "\"\<Accommodation and Food Services\>\"", ",", 
+     "\[IndentingNewLine]", "\"\<Government\>\"", ",", "\[IndentingNewLine]", 
+     "\"\<State and Local\>\""}], "\[IndentingNewLine]", "}"}]}], 
+  ";"}]], "Input",
+ CellChangeTimes->{{3.698586744244246*^9, 3.6985869459745293`*^9}, {
+  3.6986813376527233`*^9, 3.6986813688518953`*^9}}],
 
 Cell[BoxData[{
  RowBox[{
@@ -272,7 +275,34 @@ Smith\\\\Desktop\\\\ECONDATA\\\\hires\\\\JTS7100HIL.xls\>\"", "]"}], "[",
         RowBox[{"[", "1", "]"}], "]"}], ",", "11"}], "]"}]}], ")"}]}], 
   ";"}], "\[IndentingNewLine]", 
  RowBox[{
-  RowBox[{"data7200", "=", 
+  RowBox[{
+   RowBox[{"data7200", "=", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"1900", "+", 
+          FractionBox[
+           RowBox[{"FromDate", "[", 
+            RowBox[{"Normal", "[", 
+             RowBox[{"#", "[", 
+              RowBox[{"[", "1", "]"}], "]"}], "]"}], "]"}], 
+           RowBox[{"365.24", "*", "3600", "*", "24"}]], "+", 
+          RowBox[{"1", "/", "12"}]}], ",", 
+         RowBox[{"#", "[", 
+          RowBox[{"[", "2", "]"}], "]"}]}], "}"}], "&"}], "/@", 
+      RowBox[{"Drop", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{
+         "Import", "[", 
+          "\"\<C:\\\\Users\\\\Jason \
+Smith\\\\Desktop\\\\ECONDATA\\\\hires\\\\JTS7200HIL.xls\>\"", "]"}], "[", 
+         RowBox[{"[", "1", "]"}], "]"}], ",", "11"}], "]"}]}], ")"}]}], ";"}],
+   "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"data9000", "=", 
    RowBox[{"(", 
     RowBox[{
      RowBox[{
@@ -294,11 +324,38 @@ Smith\\\\Desktop\\\\ECONDATA\\\\hires\\\\JTS7100HIL.xls\>\"", "]"}], "[",
         RowBox[{
         "Import", "[", 
          "\"\<C:\\\\Users\\\\Jason \
-Smith\\\\Desktop\\\\ECONDATA\\\\hires\\\\JTS7200HIL.xls\>\"", "]"}], "[", 
+Smith\\\\Desktop\\\\ECONDATA\\\\hires\\\\JTS9000HIL.xls\>\"", "]"}], "[", 
+        RowBox[{"[", "1", "]"}], "]"}], ",", "11"}], "]"}]}], ")"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"data9200", "=", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"1900", "+", 
+         FractionBox[
+          RowBox[{"FromDate", "[", 
+           RowBox[{"Normal", "[", 
+            RowBox[{"#", "[", 
+             RowBox[{"[", "1", "]"}], "]"}], "]"}], "]"}], 
+          RowBox[{"365.24", "*", "3600", "*", "24"}]], "+", 
+         RowBox[{"1", "/", "12"}]}], ",", 
+        RowBox[{"#", "[", 
+         RowBox[{"[", "2", "]"}], "]"}]}], "}"}], "&"}], "/@", 
+     RowBox[{"Drop", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{
+        "Import", "[", 
+         "\"\<C:\\\\Users\\\\Jason \
+Smith\\\\Desktop\\\\ECONDATA\\\\hires\\\\JTS9200HIL.xls\>\"", "]"}], "[", 
         RowBox[{"[", "1", "]"}], "]"}], ",", "11"}], "]"}]}], ")"}]}], 
   ";"}]}], "Input",
  CellChangeTimes->{{3.698584630026381*^9, 3.6985846624732428`*^9}, {
-  3.698584698006506*^9, 3.698584793542285*^9}}],
+  3.698584698006506*^9, 3.698584793542285*^9}, {3.698681136009144*^9, 
+  3.698681149863572*^9}}],
 
 Cell[BoxData[
  RowBox[{"ListPlot", "[", 
@@ -307,7 +364,8 @@ Cell[BoxData[
     RowBox[{
     "data2300", ",", "data3200", ",", "data3400", ",", "data4000", ",", 
      "data4400", ",", "data6000", ",", "data6200", ",", "data7000", ",", 
-     "data7100", ",", "data7200"}], "}"}], ",", 
+     "data7100", ",", "data7200", ",", "data9000", ",", "data9200"}], "}"}], 
+   ",", 
    RowBox[{"PlotRange", "\[Rule]", "All"}], ",", 
    RowBox[{"Joined", "\[Rule]", "True"}], ",", 
    RowBox[{"Frame", "\[Rule]", 
@@ -329,7 +387,7 @@ Cell[BoxData[
    RowBox[{"PlotLegends", "\[Rule]", "labels"}]}], "]"}]], "Input",
  CellChangeTimes->{{3.69858467786087*^9, 3.6985846831336794`*^9}, {
   3.6985848020608997`*^9, 3.6985848615954065`*^9}, {3.698588715652196*^9, 
-  3.698588848386402*^9}}],
+  3.698588848386402*^9}, {3.6986813794735184`*^9, 3.698681385943736*^9}}],
 
 Cell[BoxData[{
  RowBox[{
@@ -338,22 +396,27 @@ Cell[BoxData[{
     RowBox[{
     "data2300", ",", "data3200", ",", "data3400", ",", "data4000", ",", 
      "data4400", ",", "data6000", ",", "data6200", ",", "data7000", ",", 
-     "data7100", ",", "data7200"}], "}"}]}], ";"}], "\[IndentingNewLine]", 
+     "data7100", ",", "data7200", ",", "data9000", ",", "data9200"}], "}"}]}],
+   ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"datanorm", "=", 
    RowBox[{
+    RowBox[{
+     RowBox[{"Mean", "[", 
+      RowBox[{"#", "[", 
+       RowBox[{"[", 
+        RowBox[{"All", ",", "2"}], "]"}], "]"}], "]"}], "&"}], "/@", 
     RowBox[{"{", 
      RowBox[{
      "data2300", ",", "data3200", ",", "data3400", ",", "data4000", ",", 
       "data4400", ",", "data6000", ",", "data6200", ",", "data7000", ",", 
-      "data7100", ",", "data7200"}], "}"}], "[", 
-    RowBox[{"[", 
-     RowBox[{"All", ",", "5", ",", "2"}], "]"}], "]"}]}], ";", " ", 
+      "data7100", ",", "data7200", ",", "data9000", ",", "data9200"}], 
+     "}"}]}]}], ";", " ", 
   RowBox[{"(*", " ", 
    RowBox[{
-   "arbitrarily", " ", "normalize", " ", "the", " ", "fifth", " ", "point", 
-    " ", "in", " ", "each", " ", "series", " ", "to", " ", "1"}], " ", "*)"}],
-   "\[IndentingNewLine]", 
+   "arbitrarily", " ", "normalize", " ", "the", " ", "average", " ", "of", 
+    " ", "each", " ", "series", " ", "to", " ", "1"}], " ", "*)"}], 
+  "\[IndentingNewLine]", 
   RowBox[{"data", "=", 
    RowBox[{"data", "[", 
     RowBox[{"[", 
@@ -379,7 +442,9 @@ Cell[BoxData[{
  CellChangeTimes->{{3.6985848937020645`*^9, 3.698584932306533*^9}, {
    3.6985858316495695`*^9, 3.698585937016759*^9}, {3.6985859848426447`*^9, 
    3.6985860349669385`*^9}, {3.6985862756375833`*^9, 3.698586283969998*^9}, 
-   3.698588895579886*^9, {3.69859062802248*^9, 3.698590664619545*^9}}],
+   3.698588895579886*^9, {3.69859062802248*^9, 3.698590664619545*^9}, {
+   3.698681395854556*^9, 3.69868139835056*^9}, {3.6986817603932285`*^9, 
+   3.698681793988489*^9}}],
 
 Cell[BoxData[
  RowBox[{"ListPlot", "[", 
@@ -424,8 +489,11 @@ Cell[BoxData[
 Cell[BoxData[
  RowBox[{
   RowBox[{"pca", "=", 
-   RowBox[{"KarhunenLoeveDecomposition", "[", "data", "]"}]}], ";"}]], "Input",
- CellChangeTimes->{{3.6985850583849673`*^9, 3.6985850689257884`*^9}}],
+   RowBox[{"KarhunenLoeveDecomposition", "[", 
+    RowBox[{"data", ",", 
+     RowBox[{"Standardized", "\[Rule]", "True"}]}], "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.6985850583849673`*^9, 3.6985850689257884`*^9}, {
+  3.698682033391139*^9, 3.6986820662752*^9}}],
 
 Cell[BoxData[
  RowBox[{"ListPlot", "[", 
@@ -437,7 +505,7 @@ Cell[BoxData[
    RowBox[{"PlotRange", "\[Rule]", 
     RowBox[{"{", 
      RowBox[{
-      RowBox[{"-", "0.6"}], ",", "3.6"}], "}"}]}], ",", 
+      RowBox[{"-", "1.6"}], ",", "1.6"}], "}"}]}], ",", 
    RowBox[{"Joined", "\[Rule]", "True"}], ",", 
    RowBox[{"Frame", "\[Rule]", 
     RowBox[{"{", 
@@ -482,7 +550,8 @@ Cell[BoxData[
    3.698585179544591*^9, 3.6985851981458244`*^9}, {3.698585303637412*^9, 
    3.698585406016198*^9}, {3.6985854380902553`*^9, 3.6985855666702847`*^9}, {
    3.6985884015346217`*^9, 3.6985884347584815`*^9}, 3.6985884804381638`*^9, {
-   3.6985891465333414`*^9, 3.6985891717021856`*^9}}],
+   3.6985891465333414`*^9, 3.6985891717021856`*^9}, 3.6986818159057302`*^9, {
+   3.6986821485617533`*^9, 3.6986821495133553`*^9}}],
 
 Cell[BoxData[
  RowBox[{"ListPlot", "[", 
@@ -496,7 +565,7 @@ Cell[BoxData[
    RowBox[{"PlotRange", "\[Rule]", 
     RowBox[{"{", 
      RowBox[{
-      RowBox[{"-", "0.6"}], ",", "3.6"}], "}"}]}], ",", 
+      RowBox[{"-", "1.6"}], ",", "1.6"}], "}"}]}], ",", 
    RowBox[{"Joined", "\[Rule]", "True"}], ",", 
    RowBox[{"Frame", "\[Rule]", 
     RowBox[{"{", 
@@ -538,8 +607,9 @@ Cell[BoxData[
      "\"\<Year\\n\>\"", ",", "\"\<\>\"", ",", "\"\<\>\"", ",", "\"\<\>\""}], 
      "}"}]}]}], "]"}]], "Input",
  CellChangeTimes->{{3.6985885499436865`*^9, 3.6985885525176916`*^9}, {
-  3.698588597587175*^9, 3.6985885977431755`*^9}, {3.6985891608581667`*^9, 
-  3.6985891777237964`*^9}}],
+   3.698588597587175*^9, 3.6985885977431755`*^9}, {3.6985891608581667`*^9, 
+   3.6985891777237964`*^9}, 3.698681823194745*^9, {3.6986819276333466`*^9, 
+   3.698681938942767*^9}, {3.698682138355335*^9, 3.698682139275737*^9}}],
 
 Cell[BoxData[
  RowBox[{"ArrayPlot", "[", 
@@ -566,16 +636,18 @@ Cell[BoxData[
  RowBox[{"labels2", "=", 
   RowBox[{"{", "\[IndentingNewLine]", 
    RowBox[{
-   "\"\<Cyclical\>\"", ",", "\[IndentingNewLine]", "\"\<Growth/Decline\>\"", 
+   "\"\<Cyclical\>\"", ",", "\[IndentingNewLine]", "\"\<Decline/Growth\>\"", 
     ",", "\[IndentingNewLine]", "\"\<\>\"", ",", "\[IndentingNewLine]", 
     "\"\<\>\"", ",", "\[IndentingNewLine]", "\"\<\>\"", ",", 
     "\[IndentingNewLine]", "\"\<\>\"", ",", "\[IndentingNewLine]", "\"\<\>\"",
      ",", "\[IndentingNewLine]", "\"\<\>\"", ",", "\[IndentingNewLine]", 
     "\"\<\>\"", ",", "\[IndentingNewLine]", "\"\<\>\""}], "}"}]}]], "Input",
  CellChangeTimes->{{3.698588093727459*^9, 3.6985881796658163`*^9}, {
-  3.6985882446181316`*^9, 3.698588256885753*^9}, {3.698588344665715*^9, 
-  3.698588345320916*^9}, {3.6985885736965322`*^9, 3.6985885761633368`*^9}, {
-  3.6985886123880014`*^9, 3.6985886341744423`*^9}}],
+   3.6985882446181316`*^9, 3.698588256885753*^9}, {3.698588344665715*^9, 
+   3.698588345320916*^9}, {3.6985885736965322`*^9, 3.6985885761633368`*^9}, {
+   3.6985886123880014`*^9, 3.6985886341744423`*^9}, {3.6986815529044456`*^9, 
+   3.698681554220848*^9}, 3.6986819172765274`*^9, {3.6986821767248077`*^9, 
+   3.698682179490012*^9}}],
 
 Cell[BoxData[{
  RowBox[{
@@ -629,6 +701,7 @@ Cell[BoxData[{
          RowBox[{"1", "/", "2"}]}], ",", 
         RowBox[{"BaseStyle", "\[Rule]", 
          RowBox[{"FontSize", "\[Rule]", "15"}]}], ",", 
+        RowBox[{"Axes", "\[Rule]", "False"}], ",", 
         RowBox[{"PlotLabel", "\[Rule]", 
          RowBox[{"\"\<\\nPrincipal Component \>\"", "<>", 
           RowBox[{"ToString", "[", "index", "]"}], "<>", 
@@ -675,7 +748,10 @@ Cell[BoxData[{
    3.6985884494481077`*^9, 3.6985884763509564`*^9}, {3.69858894095537*^9, 
    3.6985889645154114`*^9}, {3.6985890025996866`*^9, 3.6985891245333023`*^9}, 
    3.69858919117502*^9, 3.6985892918156033`*^9, {3.6985894378964667`*^9, 
-   3.698589457896702*^9}, {3.6985894925729637`*^9, 3.6985894927913637`*^9}}],
+   3.698589457896702*^9}, {3.6985894925729637`*^9, 3.6985894927913637`*^9}, 
+   3.6986814499558563`*^9, {3.698681564883668*^9, 3.698681571424079*^9}, {
+   3.6986816310565915`*^9, 3.6986816357084*^9}, {3.698682090598845*^9, 
+   3.698682100092063*^9}, {3.698682230001505*^9, 3.698682296987031*^9}}],
 
 Cell[BoxData[
  RowBox[{"Table", "[", 
@@ -692,7 +768,7 @@ Cell[BoxData[
 
 Cell[BoxData[{
  RowBox[{
-  RowBox[{"index", "=", "10"}], ";"}], "\[IndentingNewLine]", 
+  RowBox[{"index", "=", "12"}], ";"}], "\[IndentingNewLine]", 
  RowBox[{"Show", "[", 
   RowBox[{"GraphicsGrid", "[", 
    RowBox[{"{", 
@@ -774,7 +850,8 @@ Cell[BoxData[{
         "PlotLabel", "\[Rule]", "\"\<\\nEigenvector components\>\""}]}], 
        "]"}]}], "}"}], "}"}], "]"}], "]"}]}], "Input",
  CellChangeTimes->{{3.698590008719801*^9, 3.698590104227971*^9}, {
-  3.6985901357302284`*^9, 3.698590143432443*^9}}],
+  3.6985901357302284`*^9, 3.698590143432443*^9}, {3.698681605696943*^9, 
+  3.698681611890154*^9}, {3.6986816690412617`*^9, 3.698681681321884*^9}}],
 
 Cell[BoxData[{
  RowBox[{
@@ -877,7 +954,7 @@ Cell[BoxData[{
    3.6985899139541864`*^9}}]
 },
 WindowSize->{1401, 858},
-WindowMargins->{{81, Automatic}, {Automatic, 27}},
+WindowMargins->{{48, Automatic}, {Automatic, 34}},
 FrontEndVersion->"10.3 for Microsoft Windows (64-bit) (October 9, 2015)",
 StyleDefinitions->"Default.nb"
 ]
@@ -892,21 +969,21 @@ CellTagsIndex->{}
 *)
 (*NotebookFileOutline
 Notebook[{
-Cell[558, 20, 922, 16, 252, "Input"],
-Cell[1483, 38, 8548, 262, 370, "Input"],
-Cell[10034, 302, 1249, 29, 72, "Input"],
-Cell[11286, 333, 1846, 48, 132, "Input"],
-Cell[13135, 383, 1267, 34, 72, "Input"],
-Cell[14405, 419, 134, 2, 31, "Input"],
-Cell[14542, 423, 196, 4, 31, "Input"],
-Cell[14741, 429, 2109, 55, 72, "Input"],
-Cell[16853, 486, 1985, 55, 72, "Input"],
-Cell[18841, 543, 796, 19, 31, "Input"],
-Cell[19640, 564, 804, 13, 232, "Input"],
-Cell[20447, 579, 4298, 98, 192, "Input"],
-Cell[24748, 679, 408, 11, 31, "Input"],
-Cell[25159, 692, 3347, 84, 172, "Input"],
-Cell[28509, 778, 4237, 98, 212, "Input"]
+Cell[558, 20, 1090, 19, 292, "Input"],
+Cell[1651, 41, 10342, 316, 462, "Input"],
+Cell[11996, 359, 1335, 30, 72, "Input"],
+Cell[13334, 391, 2090, 55, 132, "Input"],
+Cell[15427, 448, 1267, 34, 72, "Input"],
+Cell[16697, 484, 134, 2, 31, "Input"],
+Cell[16834, 488, 314, 7, 31, "Input"],
+Cell[17151, 497, 2187, 56, 72, "Input"],
+Cell[19341, 555, 2107, 56, 72, "Input"],
+Cell[21451, 613, 796, 19, 31, "Input"],
+Cell[22250, 634, 935, 15, 232, "Input"],
+Cell[23188, 651, 4570, 102, 192, "Input"],
+Cell[27761, 755, 408, 11, 31, "Input"],
+Cell[28172, 768, 3444, 85, 172, "Input"],
+Cell[31619, 855, 4237, 98, 212, "Input"]
 }
 ]
 *)
