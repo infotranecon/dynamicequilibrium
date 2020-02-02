@@ -1,0 +1,675 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 10.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     26711,        666]
+NotebookOptionsPosition[     25710,        628]
+NotebookOutlinePosition[     26056,        643]
+CellTagsIndexPosition[     26013,        640]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["DIEM simulation", "Title",
+ CellChangeTimes->{{3.789653742033512*^9, 3.789653760912755*^9}}],
+
+Cell["\<\
+Dynamic Information Equilibrium Model simulation
+
+Paper at:
+https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3094757
+
+More information at:
+https://informationtransfereconomics.blogspot.com/\
+\>", "Text",
+ CellChangeTimes->{{3.7896537642815123`*^9, 3.7896537771919355`*^9}, {
+  3.7896538126069646`*^9, 3.7896538412561417`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["set parameters", "Section",
+ CellChangeTimes->{{3.78965386319284*^9, 3.789653867181452*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"nPeople", "=", "1000"}], ";", " ", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "number", " ", "of", " ", "people", " ", "in", " ", "the", " ", 
+    "economy"}], " ", "*)"}]}]], "Input",
+ CellChangeTimes->{{3.7895740882163725`*^9, 3.789574094719385*^9}, 
+   3.7895743370233355`*^9, 3.7895787065903945`*^9, {3.7895796645568857`*^9, 
+   3.789579664946886*^9}, {3.7896538447013044`*^9, 3.7896538571543093`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"nSectors", "=", "10"}], ";", " ", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{"number", " ", "of", " ", "sectors"}], ",", " ", 
+    RowBox[{
+    "sector", " ", "1", " ", "is", " ", "unemployment", " ", "sector"}]}], 
+   " ", "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"fluctuationRate", "=", "40"}], ";", " ", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "max", " ", "number", " ", "of", " ", "people", " ", "changing", " ", 
+    "sectors", " ", "per", " ", "time", " ", "step"}], " ", "*)"}], 
+  "\[IndentingNewLine]", "\[IndentingNewLine]", 
+  RowBox[{"nTurns", "=", "100"}], ";", " ", 
+  RowBox[{"(*", " ", 
+   RowBox[{"number", " ", "of", " ", "time", " ", "steps"}], " ", 
+   "*)"}]}]], "Input",
+ CellChangeTimes->{{3.789573025818289*^9, 3.7895730297045493`*^9}, {
+   3.78957377539406*^9, 3.789573799257861*^9}, {3.7895777257018695`*^9, 
+   3.789577734703085*^9}, 3.789577866775519*^9, 3.7895781115243487`*^9, 
+   3.789578203611311*^9, {3.7895782407081757`*^9, 3.789578240817376*^9}, 
+   3.789578549886119*^9, 3.7895786152034335`*^9, {3.789578676419941*^9, 
+   3.7895786971835775`*^9}, {3.789578809035774*^9, 3.7895788285368085`*^9}, 
+   3.7895788648148727`*^9, {3.789579614683598*^9, 3.7895796150891986`*^9}, {
+   3.7896534356554723`*^9, 3.7896535522920933`*^9}, {3.7896542161837606`*^9, 
+   3.789654223990979*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["non equilibrium shocks", "Section",
+ CellChangeTimes->{{3.7896538770554*^9, 3.7896538820948606`*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"shockSize", "=", "70"}], ";", " ", 
+   RowBox[{"(*", " ", 
+    RowBox[{"first", " ", "shock", " ", "amplitude"}], " ", "*)"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"shockSize2", "=", "200"}], ";"}], " ", 
+  RowBox[{"(*", " ", 
+   RowBox[{"second", " ", "shock", " ", "amplitude"}], " ", "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{
+     RowBox[{
+     "Set", " ", "defaultUnrateEntry", " ", "to", " ", "1", " ", "to", " ", 
+      "include", " ", "the", " ", "unemployment", " ", "sector", " ", "in", 
+      " ", "equilibrium", " ", "changes"}], ";", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{
+      "set", " ", "to", " ", "0", " ", "to", " ", "only", " ", "shift", " ", 
+       "people", " ", "into", " ", "the", " ", "unemployment", " ", "sector", 
+       " ", "during", " ", "non"}], "-", 
+      RowBox[{"equilibrium", " ", 
+       RowBox[{"shocks", ".", "\[IndentingNewLine]", "Note"}], " ", "that", 
+       " ", "this", " ", "is", " ", "a", " ", "kludgy", " ", "way", " ", "to",
+        " ", "make", " ", "it", " ", "more", " ", "likely", " ", "to", " ", 
+       "enter", " ", "an", " ", "employment", " ", "sector", " ", "to", " ", 
+       "approximate", " ", 
+       RowBox[{"growth", ".", "\[IndentingNewLine]", "In"}], " ", "a", " ", 
+       "true", " ", "DIEM", " ", "this", " ", "should", " ", "be", " ", 
+       "achieved", " ", "by", " ", "making", " ", "the", " ", "size", " ", 
+       "of", " ", "the", " ", "employment", " ", "space", " ", "get", " ", 
+       "larger", " ", "faster", " ", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"e", ".", "g", ".", " ", "adding"}], " ", "sectors"}], ")"}],
+        " ", "than", " ", "the", " ", "unemployment", " ", 
+       RowBox[{"sector", ".", "\[IndentingNewLine]", "Unfortunately"}]}]}]}], 
+    ",", " ", 
+    RowBox[{
+    "that", " ", "would", " ", "mean", " ", "rapidly", " ", "increasing", " ",
+      "the", " ", "size", " ", "of", " ", "the", " ", "table"}], ",", " ", 
+    RowBox[{"slowing", " ", "down", " ", "the", " ", 
+     RowBox[{"simulation", ".", "\[IndentingNewLine]", "This"}], " ", 
+     "kludge", " ", "achieves", " ", "the", " ", "same", " ", "observed", " ",
+      "effect", " ", 
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{
+       "constant", " ", "decline", " ", "of", " ", "unemployment", " ", 
+        "outside", " ", "non"}], "-", 
+       RowBox[{
+       "equilibrium", " ", "shocks", " ", "or", " ", "another", " ", "way", 
+        " ", "0", "%", " ", "equilibrium", " ", "unemployment", " ", 
+        "rate"}]}], ")"}], " ", "without", " ", "increasing", " ", "the", " ",
+      "size", " ", "of", " ", "the", " ", 
+     RowBox[{"simulation", "."}]}]}], " ", "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"defaultUnrateEntry", "=", "0"}], ";"}], 
+  " "}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"shock", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{"defaultUnrateEntry", ",", 
+     RowBox[{"{", "nTurns", "}"}]}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"shockFunction", "=", 
+   RowBox[{"PDF", "[", 
+    RowBox[{"NormalDistribution", "[", 
+     RowBox[{"15", ",", "3"}], "]"}], "]"}]}], ";", " ", 
+  RowBox[{"(*", " ", 
+   RowBox[{"first", " ", "gaussian", " ", "shock"}], " ", "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"shockFunction2", "=", 
+   RowBox[{"PDF", "[", 
+    RowBox[{"NormalDistribution", "[", 
+     RowBox[{"50", ",", "3"}], "]"}], "]"}]}], ";", " ", 
+  RowBox[{"(*", " ", 
+   RowBox[{"second", " ", "gaussian", " ", "shock"}], " ", "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"shock", "=", 
+   RowBox[{"shock", "+", 
+    RowBox[{"Table", "[", 
+     RowBox[{
+      RowBox[{"IntegerPart", "[", 
+       RowBox[{
+        RowBox[{"shockSize", "*", 
+         RowBox[{"shockFunction", "[", "ii", "]"}]}], "+", 
+        RowBox[{"shockSize2", "*", 
+         RowBox[{"shockFunction2", "[", "ii", "]"}]}]}], "]"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"ii", ",", "nTurns"}], "}"}]}], "]"}]}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"ListPlot", "[", 
+  RowBox[{"shock", ",", 
+   RowBox[{"PlotRange", "\[Rule]", "All"}], ",", 
+   RowBox[{"PlotStyle", "\[Rule]", 
+    RowBox[{
+     RowBox[{"ColorData", "[", "97", "]"}], "[", "2", "]"}]}], ",", 
+   RowBox[{"Joined", "\[Rule]", "True"}], ",", 
+   RowBox[{"Frame", "\[Rule]", "True"}], ",", 
+   RowBox[{"FrameLabel", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+     "\"\<Time step\>\"", ",", 
+      "\"\<Number of entries in lottery sector 1\>\""}], "}"}]}]}], 
+  "]"}]}], "Input",
+ CellChangeTimes->{{3.7895777040802317`*^9, 3.7895777476157093`*^9}, {
+   3.789577804357809*^9, 3.7895779956941457`*^9}, {3.7895780640846653`*^9, 
+   3.789578064240666*^9}, {3.789578201552107*^9, 3.789578207714118*^9}, {
+   3.7895783933398438`*^9, 3.789578397380251*^9}, 3.789578528919682*^9, 
+   3.789578639728677*^9, {3.789578736448847*^9, 3.7895787368700476`*^9}, {
+   3.7895787878821373`*^9, 3.789578791376543*^9}, 3.7895788336848173`*^9, {
+   3.7895789877570896`*^9, 3.7895790268235626`*^9}, {3.7895819545833473`*^9, 
+   3.7895820363322926`*^9}, {3.789582077422765*^9, 3.789582124676248*^9}, {
+   3.78965342000994*^9, 3.7896534201915417`*^9}, {3.789653565413468*^9, 
+   3.7896537284158773`*^9}, {3.789654195118699*^9, 3.789654210098064*^9}, {
+   3.7896542488406754`*^9, 3.7896548711499386`*^9}, {3.7896555518162766`*^9, 
+   3.7896555669310975`*^9}, {3.7896556036208553`*^9, 3.789655650903085*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["run the time series", "Section",
+ CellChangeTimes->{{3.789655690597217*^9, 3.7896556953096724`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "start", " ", "randomly", " ", "distributed", " ", "across", " ", 
+    "sectors"}], " ", "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "note", " ", "this", " ", "implies", " ", "initial", " ", "unemployment", 
+    " ", "rate", " ", "will", " ", 
+    RowBox[{
+     RowBox[{"be", " ", "~", " ", "1"}], "/", "nSectors"}]}], " ", "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"startingThrow", "=", 
+     RowBox[{"Split", "[", 
+      RowBox[{"Sort", "[", 
+       RowBox[{"RandomInteger", "[", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"1", ",", "nSectors"}], "}"}], ",", "nPeople"}], "]"}], 
+       "]"}], "]"}]}], ";"}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
+   RowBox[{"(*", " ", 
+    RowBox[{"collect", " ", "unemployment", " ", "rates"}], " ", "*)"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"unrate", "=", 
+     RowBox[{"{", "}"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{"(*", " ", 
+    RowBox[{
+    "collect", " ", "the", " ", "distribution", " ", "of", " ", "people", " ",
+      "at", " ", "each", " ", "time", " ", "step"}], " ", "*)"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"throws", "=", 
+     RowBox[{"{", "}"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"throw", "=", "startingThrow"}], ";"}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
+   RowBox[{"(*", " ", 
+    RowBox[{"main", " ", "loop"}], " ", "*)"}], "\[IndentingNewLine]", 
+   RowBox[{"Do", "[", "\[IndentingNewLine]", 
+    RowBox[{"(*", " ", 
+     RowBox[{
+     "current", " ", "distribution", " ", "of", " ", "people", " ", "is", " ",
+       "the", " ", "disribution", " ", "of", " ", "the", " ", "sectors", " ", 
+      "people", " ", "are", " ", "changing", " ", "*", "from", "*"}], " ", 
+     "*)"}], "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"jobs0", "=", 
+       RowBox[{"Flatten", "[", "throw", "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"(*", " ", 
+       RowBox[{
+       "sector", " ", "people", " ", "change", " ", "*", "to", "*", " ", "is",
+         " ", "a", " ", "lottery", " ", "from", " ", "a", " ", "uniform", " ",
+         "distribution", " ", "over", " ", "the", " ", "employment", " ", 
+        "sectors", " ", "with", " ", "the", " ", "unemployment", " ", 
+        "sector", " ", "entering", " ", "the", " ", "lottery", " ", "a", " ", 
+        "larger", " ", "number", " ", "of", " ", "times", " ", "during", " ", 
+        "non", " ", "equilibrium", " ", "shocks"}], " ", "*)"}], 
+      "\[IndentingNewLine]", 
+      RowBox[{"jobs", "=", 
+       RowBox[{"Join", "[", 
+        RowBox[{
+         RowBox[{"Table", "[", 
+          RowBox[{"1", ",", 
+           RowBox[{"{", 
+            RowBox[{"shock", "[", 
+             RowBox[{"[", "jj", "]"}], "]"}], "}"}]}], "]"}], ",", 
+         RowBox[{"Table", "[", 
+          RowBox[{"ii", ",", 
+           RowBox[{"{", 
+            RowBox[{"ii", ",", "2", ",", "nSectors"}], "}"}]}], "]"}]}], 
+        "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"(*", " ", 
+       RowBox[{
+        RowBox[{"moves", " ", "is", " ", "a", " ", "table", " ", "of", " ", 
+         RowBox[{"{", 
+          RowBox[{"a", ",", " ", "b"}], "}"}], " ", "where", " ", "a", " ", 
+         "is", " ", "the", " ", "sector", " ", "to", " ", "move", " ", "*", 
+         "from", "*", " ", "and", " ", "b", " ", "is", " ", "the", " ", 
+         "sector", " ", "to", " ", "move", " ", "*", "to", "*"}], ",", " ", 
+        RowBox[{
+         RowBox[{"eg", ".", " ", 
+          RowBox[{"{", 
+           RowBox[{"2", ",", " ", "3"}], "}"}]}], " ", "moves", " ", "a", " ",
+          "person", " ", "from", " ", "sector", " ", "2", " ", "to", " ", 
+         "sector", " ", "3", " ", "while", " ", 
+         RowBox[{"{", 
+          RowBox[{"4", ",", " ", "1"}], "}"}], " ", "moves", " ", "a", " ", 
+         "person", " ", "from", " ", "sector", " ", "4", " ", "in", " ", "to",
+          " ", "unemployment", " ", 
+         RowBox[{"(", 
+          RowBox[{"sector", " ", "1"}], ")"}]}]}], " ", "*)"}], 
+      "\[IndentingNewLine]", 
+      RowBox[{"moves", "=", 
+       RowBox[{"Transpose", "[", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"RandomChoice", "[", 
+           RowBox[{"jobs0", ",", "fluctuationRate"}], "]"}], ",", 
+          RowBox[{"RandomChoice", "[", 
+           RowBox[{"jobs", ",", "fluctuationRate"}], "]"}]}], "}"}], "]"}]}], 
+      ";", "\[IndentingNewLine]", 
+      RowBox[{"(*", " ", 
+       RowBox[{
+        RowBox[{"delete", " ", "non"}], "-", "moves"}], " ", "*)"}], 
+      "\[IndentingNewLine]", 
+      RowBox[{"moves", "=", 
+       RowBox[{"DeleteCases", "[", 
+        RowBox[{"moves", ",", 
+         RowBox[{"x_", "/;", 
+          RowBox[{
+           RowBox[{"x", "[", 
+            RowBox[{"[", "1", "]"}], "]"}], "\[Equal]", 
+           RowBox[{"x", "[", 
+            RowBox[{"[", "2", "]"}], "]"}]}]}]}], "]"}]}], ";", " ", 
+      "\[IndentingNewLine]", 
+      RowBox[{"(*", " ", 
+       RowBox[{
+       "delete", " ", "moves", " ", "that", " ", "would", " ", "bring", " ", 
+        "a", " ", "sector", " ", "below", " ", "zero"}], " ", "*)"}], 
+      "\[IndentingNewLine]", 
+      RowBox[{"moves", "=", 
+       RowBox[{"DeleteCases", "[", 
+        RowBox[{"moves", ",", 
+         RowBox[{"x_", "/;", 
+          RowBox[{
+           RowBox[{"Length", "[", 
+            RowBox[{"throw", "[", 
+             RowBox[{"[", 
+              RowBox[{"x", "[", 
+               RowBox[{"[", "1", "]"}], "]"}], "]"}], "]"}], "]"}], "<", 
+           RowBox[{"Length", "[", 
+            RowBox[{"Cases", "[", 
+             RowBox[{"moves", ",", 
+              RowBox[{"y_", "/;", 
+               RowBox[{
+                RowBox[{"y", "[", 
+                 RowBox[{"[", "1", "]"}], "]"}], "\[Equal]", 
+                RowBox[{"x", "[", 
+                 RowBox[{"[", "1", "]"}], "]"}]}]}]}], "]"}], "]"}]}]}]}], 
+        "]"}]}], ";", " ", "\[IndentingNewLine]", 
+      RowBox[{"(*", " ", 
+       RowBox[{"make", " ", "all", " ", "the", " ", "moves"}], " ", "*)"}], 
+      "\[IndentingNewLine]", 
+      RowBox[{"Do", "[", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{
+         RowBox[{
+          RowBox[{"throw", "[", 
+           RowBox[{"[", 
+            RowBox[{"moves", "[", 
+             RowBox[{"[", 
+              RowBox[{"ii", ",", "1"}], "]"}], "]"}], "]"}], "]"}], "=", 
+          RowBox[{"Drop", "[", 
+           RowBox[{
+            RowBox[{"throw", "[", 
+             RowBox[{"[", 
+              RowBox[{"moves", "[", 
+               RowBox[{"[", 
+                RowBox[{"ii", ",", "1"}], "]"}], "]"}], "]"}], "]"}], ",", 
+            RowBox[{"-", "1"}]}], "]"}]}], ";", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{"throw", "[", 
+           RowBox[{"[", 
+            RowBox[{"moves", "[", 
+             RowBox[{"[", 
+              RowBox[{"ii", ",", "2"}], "]"}], "]"}], "]"}], "]"}], "=", 
+          RowBox[{"Append", "[", 
+           RowBox[{
+            RowBox[{"throw", "[", 
+             RowBox[{"[", 
+              RowBox[{"moves", "[", 
+               RowBox[{"[", 
+                RowBox[{"ii", ",", "2"}], "]"}], "]"}], "]"}], "]"}], ",", 
+            RowBox[{"moves", "[", 
+             RowBox[{"[", 
+              RowBox[{"ii", ",", "2"}], "]"}], "]"}]}], "]"}]}]}], 
+        "\[IndentingNewLine]", ",", 
+        RowBox[{"{", 
+         RowBox[{"ii", ",", 
+          RowBox[{"Length", "[", "moves", "]"}]}], "}"}]}], "]"}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"(*", " ", 
+       RowBox[{"compute", " ", "new", " ", "unemployment", " ", "rate"}], " ",
+        "*)"}], "\[IndentingNewLine]", 
+      RowBox[{"unrate", "=", 
+       RowBox[{"Append", "[", 
+        RowBox[{"unrate", ",", 
+         RowBox[{"100.0", "*", 
+          FractionBox[
+           RowBox[{"Length", "[", 
+            RowBox[{"throw", "[", 
+             RowBox[{"[", "1", "]"}], "]"}], "]"}], "nPeople"]}]}], "]"}]}], 
+      ";", "\[IndentingNewLine]", 
+      RowBox[{"(*", " ", 
+       RowBox[{
+       "status", " ", "bar", " ", "shows", " ", "unemployment", " ", "rate", 
+        " ", "and", " ", "total", " ", "number", " ", "of", " ", "people", 
+        " ", "to", " ", "check", " ", 
+        RowBox[{"for", " ", "'"}], 
+        RowBox[{"leaks", "'"}]}], " ", "*)"}], "\[IndentingNewLine]", 
+      RowBox[{"WriteString", "[", 
+       RowBox[{"$Output", ",", 
+        RowBox[{
+         RowBox[{"ToString", "[", 
+          RowBox[{"Length", "[", 
+           RowBox[{"Flatten", "[", "throw", "]"}], "]"}], "]"}], "<>", 
+         "\"\< \>\"", "<>", 
+         RowBox[{"ToString", "[", 
+          RowBox[{"unrate", "[", 
+           RowBox[{"[", 
+            RowBox[{"-", "1"}], "]"}], "]"}], "]"}], "<>", "\"\<% \>\"", "<>", 
+         RowBox[{"If", "[", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"Mod", "[", 
+             RowBox[{"jj", ",", "10"}], "]"}], "\[Equal]", "0"}], ",", 
+           "\"\<\\n\>\"", ",", "\"\<\>\""}], "]"}]}]}], "]"}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"(*", " ", 
+       RowBox[{
+       "add", " ", "new", " ", "distribution", " ", "to", " ", "the", " ", 
+        "history"}], " ", "*)"}], "\[IndentingNewLine]", 
+      RowBox[{"throws", "=", 
+       RowBox[{"Append", "[", 
+        RowBox[{"throws", ",", "throw"}], "]"}]}], ";"}], 
+     "\[IndentingNewLine]", ",", 
+     RowBox[{"{", 
+      RowBox[{"jj", ",", "nTurns"}], "}"}]}], "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.7895746129284897`*^9, 3.7895748482568393`*^9}, {
+   3.7895748884833403`*^9, 3.7895749216357746`*^9}, {3.7895750708383846`*^9, 
+   3.7895751446528163`*^9}, {3.7895751773876147`*^9, 3.789575233607499*^9}, {
+   3.789575266790577*^9, 3.7895753123147564`*^9}, {3.7895753723098335`*^9, 
+   3.789575504731883*^9}, {3.78957554772716*^9, 3.7895755692450686`*^9}, {
+   3.7895758218018794`*^9, 3.789576029325101*^9}, {3.7895760744853363`*^9, 
+   3.789576099713706*^9}, 3.789576722495072*^9, {3.789576769265379*^9, 
+   3.7895767729568305`*^9}, {3.7895776757193813`*^9, 3.78957773183268*^9}, 
+   3.789577791233386*^9, {3.7895780170973835`*^9, 3.7895780223701925`*^9}, {
+   3.7895781560624275`*^9, 3.789578179883669*^9}, {3.789578365025794*^9, 
+   3.7895783832154264`*^9}, {3.789578602333411*^9, 3.789578602458211*^9}, {
+   3.789578940223806*^9, 3.7895789821254797`*^9}, {3.7895818187003064`*^9, 
+   3.7895818188251066`*^9}, {3.7896533533744197`*^9, 
+   3.7896533602505016`*^9}, {3.7896534237931137`*^9, 3.789653423933514*^9}, {
+   3.789653634723716*^9, 3.7896536400914755`*^9}, {3.789653908133048*^9, 
+   3.78965415562879*^9}, {3.7896550452567225`*^9, 3.7896554428744087`*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["display & output", "Section",
+ CellChangeTimes->{{3.7896557015015907`*^9, 3.7896557100920563`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "quick", " ", "check", " ", "of", " ", "unemployment", " ", "rate", " ", 
+    "graph", " ", "vs", " ", "time", " ", "step"}], " ", "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"ListPlot", "[", 
+   RowBox[{"unrate", ",", 
+    RowBox[{"Joined", "\[Rule]", "True"}], ",", 
+    RowBox[{"Frame", "\[Rule]", "True"}], ",", 
+    RowBox[{"FrameLabel", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{"\"\<Time step\>\"", ",", "\"\<Unemployment rate [%]\>\""}], 
+      "}"}]}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.7895853335101457`*^9, 3.789585342473489*^9}, {
+  3.789653224320059*^9, 3.789653226415166*^9}, {3.789655450852214*^9, 
+  3.7896554746390696`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "plot", " ", "ranges", " ", "for", " ", "the", " ", "two", " ", "graphs"}],
+    " ", "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"height", "=", "50"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"height1", "=", "40"}], ";"}]}]}]], "Input",
+ CellChangeTimes->{{3.78957904256399*^9, 3.7895790460583963`*^9}, {
+  3.7895813924315248`*^9, 3.7895813987183356`*^9}, {3.789654950596654*^9, 
+  3.7896549647769995`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "graphical", " ", "representation", " ", "of", " ", "the", " ", "throw", 
+    " ", "data", " ", "for", " ", "each", " ", "time", " ", "step"}], " ", 
+   "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"barFrames", "=", 
+    RowBox[{"Table", "[", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"temp", "=", 
+        RowBox[{"throws", "[", 
+         RowBox[{"[", "ii", "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"p1", "=", 
+        RowBox[{"BarChart", "[", 
+         RowBox[{
+          RowBox[{"100.0", 
+           FractionBox[
+            RowBox[{"Length", "/@", "temp"}], "nPeople"]}], ",", 
+          RowBox[{"PlotRange", "\[Rule]", 
+           RowBox[{"{", 
+            RowBox[{"0", ",", "height1"}], "}"}]}], ",", 
+          RowBox[{"ChartStyle", "\[Rule]", 
+           RowBox[{"Directive", "[", 
+            RowBox[{
+             RowBox[{"EdgeForm", "[", "Black", "]"}], ",", " ", "White"}], 
+            "]"}]}], ",", 
+          RowBox[{"ChartLabels", "\[Rule]", 
+           RowBox[{"{", "\"\<u\>\"", "}"}]}], ",", 
+          RowBox[{"Frame", "\[Rule]", "True"}], ",", 
+          RowBox[{"FrameLabel", "\[Rule]", 
+           RowBox[{"{", 
+            RowBox[{
+            "\"\<Sectors\>\"", ",", "\"\<People in each sector [%]\>\""}], 
+            "}"}]}]}], "]"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"p2", "=", 
+        RowBox[{"ListPlot", "[", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"Take", "[", 
+             RowBox[{"unrate", ",", "ii"}], "]"}], ",", "shock"}], "}"}], ",", 
+          RowBox[{"Frame", "\[Rule]", "True"}], ",", 
+          RowBox[{"FrameLabel", "\[Rule]", 
+           RowBox[{"{", 
+            RowBox[{
+            "\"\<Time step\>\"", ",", "\"\<Unemployment rate [%]\>\""}], 
+            "}"}]}], ",", 
+          RowBox[{"PlotRange", "\[Rule]", 
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{"0", ",", "nTurns"}], "}"}], ",", 
+             RowBox[{"{", 
+              RowBox[{"0", ",", "height"}], "}"}]}], "}"}]}], ",", 
+          RowBox[{"Joined", "\[Rule]", "True"}], ",", 
+          RowBox[{"GridLines", "\[Rule]", 
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"{", "}"}], ",", 
+             RowBox[{"{", "}"}]}], "}"}]}]}], "]"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"Show", "[", 
+        RowBox[{
+         RowBox[{"GraphicsGrid", "[", 
+          RowBox[{"{", 
+           RowBox[{"{", 
+            RowBox[{"p1", ",", "p2"}], "}"}], "}"}], "]"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", 
+          RowBox[{"10", "*", "72"}]}]}], "]"}]}], ",", 
+      RowBox[{"{", 
+       RowBox[{"ii", ",", 
+        RowBox[{"Length", "[", "throws", "]"}]}], "}"}]}], "]"}]}], 
+   ";"}]}]], "Input",
+ CellChangeTimes->{{3.7895768361415515`*^9, 3.7895770359798822`*^9}, {
+   3.7895771071753626`*^9, 3.7895772546346645`*^9}, {3.7895773015425224`*^9, 
+   3.7895773025781546`*^9}, 3.7895773633575068`*^9, {3.7895773937658834`*^9, 
+   3.7895774089681735`*^9}, {3.7895774542248588`*^9, 3.789577499977615*^9}, {
+   3.7895775384160824`*^9, 3.7895775516761055`*^9}, {3.7895776203898296`*^9, 
+   3.789577651533925*^9}, 3.7895777922317877`*^9, {3.789579049724403*^9, 
+   3.7895790513780055`*^9}, {3.789579221100704*^9, 3.7895792230819077`*^9}, {
+   3.789579261286375*^9, 3.789579292010631*^9}, {3.789579326658292*^9, 
+   3.7895793756267776`*^9}, {3.7895794364044847`*^9, 
+   3.7895794651085353`*^9}, {3.789579497026191*^9, 3.7895795490054827`*^9}, {
+   3.7895795850259457`*^9, 3.7895795959479647`*^9}, {3.7895812551044836`*^9, 
+   3.7895812576004877`*^9}, {3.789581318097394*^9, 3.7895814354252005`*^9}, {
+   3.7895814892326946`*^9, 3.7895814919938993`*^9}, {3.789581542849989*^9, 
+   3.7895815476079974`*^9}, 3.789581858371176*^9, {3.7896549679775534`*^9, 
+   3.7896549853904886`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"(*", " ", 
+  RowBox[{
+  "create", " ", "an", " ", "animation", " ", "from", " ", "the", " ", 
+   "frames"}], " ", "*)"}]], "Input",
+ CellChangeTimes->{{3.7896554851264496`*^9, 3.7896555000708385`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"ListAnimate", "[", "barFrames", "]"}]], "Input",
+ CellChangeTimes->{{3.789576204133257*^9, 3.789576207704116*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{"export", " ", "as", " ", "gif", " ", "animation"}], " ", "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{"Export", "[", 
+    RowBox[{
+    "\"\<C:\\\\dynamic equilibrium (unrate) animation.gif\>\"", ",", 
+     "barFrames", ",", 
+     RowBox[{"\"\<DisplayDurations\>\"", "\[Rule]", "0.1"}]}], "]"}], " ", 
+   "*)"}]}]], "Input",
+ CellChangeTimes->{{3.7895816144229145`*^9, 3.789581648056574*^9}, {
+  3.7896532675244026`*^9, 3.7896532752616243`*^9}, {3.78965500341486*^9, 
+  3.7896550136952147`*^9}}]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{1141, 854},
+WindowMargins->{{200, Automatic}, {Automatic, 27}},
+FrontEndVersion->"10.3 for Microsoft Windows (64-bit) (October 9, 2015)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 98, 1, 90, "Title"],
+Cell[681, 25, 339, 10, 144, "Text"],
+Cell[CellGroupData[{
+Cell[1045, 39, 98, 1, 63, "Section"],
+Cell[1146, 42, 436, 9, 31, "Input"],
+Cell[1585, 53, 1351, 27, 112, "Input"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[2973, 85, 107, 1, 63, "Section"],
+Cell[3083, 88, 5491, 120, 372, "Input"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[8611, 213, 106, 1, 63, "Section"],
+Cell[8720, 216, 10700, 249, 805, "Input"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[19457, 470, 105, 1, 63, "Section"],
+Cell[19565, 473, 715, 17, 52, "Input"],
+Cell[20283, 492, 506, 13, 72, "Input"],
+Cell[20792, 507, 3943, 90, 213, "Input"],
+Cell[24738, 599, 225, 5, 31, "Input"],
+Cell[24966, 606, 138, 2, 31, "Input"],
+Cell[25107, 610, 575, 14, 52, "Input"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
